@@ -35,4 +35,13 @@ router.get("/create", async (req, res) => {
     res.send("Create Admin Page!");
 })
 
+//list-all-admins
+router.get("/listalladmins", async (req, res) => {
+    const admins = await Admin.find({});
+    console.table(admins);
+    res.send(admins);
+
+});
+
 module.exports = router;
+

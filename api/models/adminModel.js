@@ -30,4 +30,6 @@ const adminSchema = new mongoose.Schema({
   ],
 });
 
+//add bcrypt later
+
 module.exports = Admin = mongoose.model('Admin', adminSchema);
