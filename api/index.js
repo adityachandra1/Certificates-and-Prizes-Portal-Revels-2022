@@ -1,11 +1,13 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const  bodyParser = require('body-parser');
-require('dotenv').config();
-const app = express();
 
+
+const uploadRoutes = require('./routes/uploadRoutes');
 const authRoutes = require('./routes/authRoutes');
 
+require('dotenv').config();
+const app = express();
 const PORT = 8080;
 
 app.use(express.json());
@@ -27,4 +29,5 @@ app.get("/", function (req, res) {
 
 //Routes
 app.use(authRoutes);
+app.use(uploadRoutes);
 
