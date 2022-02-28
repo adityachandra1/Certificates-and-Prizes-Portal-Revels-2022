@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-
 /*Generate JWT Token Secret, stored as env var
 console.log(require('crypto').randomBytes(64).toString('hex'))*/
 
@@ -17,7 +16,7 @@ const PORT = 8080;
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.DB_URI || 'mongodb+srv://admin:admin123@cluster0.gqru4.mongodb.net/cnp-portal?retryWrites=true&w=majority', {
+mongoose.connect(process.env.DB_URI || 'mongodb+srv://admin:admin123@cluster0.gqru4.mongodb.net/cnp-portal', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })

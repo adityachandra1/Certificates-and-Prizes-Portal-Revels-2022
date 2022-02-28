@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const sessionstorage = require("sessionstorage");
 const Admin = require('../models/adminModel');
 
+const verifyToken = require('../middlewares/authMiddleware.js');
 const router = express();
 
 //jwt
@@ -27,9 +28,6 @@ router.post("/create", async(req, res) => {
         res.status(400, "Error while creating Admin");
     }
 });
-
-
-
 router.get("/create", async(req, res) => {
     res.send("Create Admin Page!");
 })
@@ -40,9 +38,10 @@ router.get("/listalladmins", async(req, res) => {
     console.table(admins);
     res.send(admins);
 });
-router.post("/login", async (req, res) => {
-    
-  
+
+router.post("/login", async(req, res) => {
+
+
     try {
         
         var user = await Admin.findOne({ email: req.body.email });
@@ -70,9 +69,9 @@ router.post("/login", async (req, res) => {
         }
       
     } catch (error) {
-      console.log(error);
-     
+        console.log(error);
+
     }
-  });
+});
 
 module.exports = router;
