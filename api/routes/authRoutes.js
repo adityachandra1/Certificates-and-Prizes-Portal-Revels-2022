@@ -15,19 +15,16 @@ const createToken = (id) => {
 //create-admin
 router.post("/create", async(req, res) => {
     const { name, password, email, token, role } = req.body;
-
     try {
         const admin = await Admin.create({ name, password, email, token, role });
-        const jwt_token = createToken(admin._id);
-        sessionstorage.setItem("jwt", jwt_token);
-
         console.log(admin);
-        res.status(201).json(jwt_token);
+        res.send("successfully registered");
     } catch (err) {
         console.log(err);
         res.status(400, "Error while creating Admin");
     }
 });
+
 router.get("/create", async(req, res) => {
     res.send("Create Admin Page!");
 })
@@ -40,38 +37,24 @@ router.get("/listalladmins", async(req, res) => {
 });
 
 router.post("/login", async(req, res) => {
-
-
     try {
-        
-        var user = await Admin.findOne({ email: req.body.email });
-        var password=req.body.password;
-        var hash=user.password;
-        console.log(password);
-        console.log(hash);
-        console.log(user);
-        var passwordIsValid=false;
-        if(password===hash)
-        passwordIsValid=true;
-        if (!passwordIsValid) {
-          return res.status(201).send({
-            accessToken: null,
-            message: "Invalid Password!"
-          });
+        const { email, password } = req.body;
+        const user = await Admin.findOne({ email: email, password: password });
+        if (user) {
+            const accessToken = createToken(user._id);
+            res.json({
+                accessToken
+            });
+        } else {
+            res.send('Username or password incorrect');
         }
-        else
-        {
-            const token = createToken(user._id);
-      sessionstorage.setItem("jwt", token);
-  
-      res.status(200).json(token);
-          
-        }
-      
     } catch (error) {
         console.log(error);
-
     }
+});
+
+router.get('/hidden', verifyToken, (req, res) => {
+    res.send("Hello");
 });
 
 module.exports = router;
