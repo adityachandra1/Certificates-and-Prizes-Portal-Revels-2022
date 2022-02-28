@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const sessionstorage = require("sessionstorage");
 const Admin = require('../models/adminModel');
+var bcrypt = require("bcrypt");
 
 const verifyToken = require('../middlewares/authMiddleware.js');
 const router = express();
@@ -16,8 +17,7 @@ const createToken = (id) => {
 router.post("/create", async(req, res) => {
     const { name, password, email, token, role } = req.body;
     try {
-        const admin = await Admin.create({ name, password, email, token, role });
-        console.log(admin);
+        const admin = await Admin.create({ name, password: bcrypt.hashSync(password, 8), email, token, role });
         res.send("successfully registered");
     } catch (err) {
         console.log(err);
@@ -39,15 +39,23 @@ router.get("/listalladmins", async(req, res) => {
 router.post("/login", async(req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await Admin.findOne({ email: email, password: password });
-        if (user) {
+        const user = await Admin.findOne({ email: email });
+        var validPw = bcrypt.compareSync(
+            req.body.password,
+            user.password
+        );
+        if (validPw) {
             const accessToken = createToken(user._id);
             res.json({
-                accessToken
+                accessToken: accessToken,
+                name: user.name,
             });
-            sessionstorage.setItem("jwt", token);
+            sessionstorage.setItem("jwt", accessToken);
         } else {
-            res.send('Username or password incorrect');
+            return res.status(401).send({
+                accessToken: null,
+                message: "invalid email or password"
+            });
         }
     } catch (error) {
         console.log(error);
