@@ -1,21 +1,18 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const sessionstorage = require("sessionstorage");
-
 const Admin = require('../models/adminModel');
 
 const router = express();
-const JWT_SECRET = "revels2022jwt";
-
 
 //jwt
 const maxAge = 7 * 24 * 60 * 60;
 const createToken = (id) => {
-    return jwt.sign({ id }, JWT_SECRET, { expiresIn: maxAge });
+    return jwt.sign({ id }, process.env.TOKEN_SECRET, { expiresIn: maxAge });
 }
 
 //create-admin
-router.post("/create", async (req, res) => {
+router.post("/create", async(req, res) => {
     const { name, password, email, token, role } = req.body;
 
     try {
@@ -31,16 +28,19 @@ router.post("/create", async (req, res) => {
     }
 });
 
-router.get("/create", async (req, res) => {
+router.post("/login", signin, function(req, res) {
+
+});
+
+router.get("/create", async(req, res) => {
     res.send("Create Admin Page!");
 })
 
 //list-all-admins
-router.get("/listalladmins", async (req, res) => {
+router.get("/listalladmins", async(req, res) => {
     const admins = await Admin.find({});
     console.table(admins);
     res.send(admins);
-
 });
 router.post("/login", async (req, res) => {
     
@@ -76,4 +76,3 @@ router.post("/login", async (req, res) => {
   });
 
 module.exports = router;
-
