@@ -45,6 +45,7 @@ router.post("/login", async(req, res) => {
             res.json({
                 accessToken
             });
+            sessionstorage.setItem("jwt", token);
         } else {
             res.send('Username or password incorrect');
         }
