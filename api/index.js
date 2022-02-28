@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const app = express();
+
 
 /*Generate JWT Token Secret, stored as env var
 console.log(require('crypto').randomBytes(64).toString('hex'))*/

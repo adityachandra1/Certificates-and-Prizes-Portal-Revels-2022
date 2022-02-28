@@ -28,9 +28,7 @@ router.post("/create", async(req, res) => {
     }
 });
 
-router.post("/login", signin, function(req, res) {
 
-});
 
 router.get("/create", async(req, res) => {
     res.send("Create Admin Page!");
@@ -46,15 +44,16 @@ router.post("/login", async (req, res) => {
     
   
     try {
-        var userID = req.userId;
-        var user = await Admin.findOne({ _id: userID });
-        var password=req.password;
+        
+        var user = await Admin.findOne({ email: req.body.email });
+        var password=req.body.password;
         var hash=user.password;
-  
-        var passwordIsValid = bcrypt.compareSync(
-         password,
-         hash
-        );
+        console.log(password);
+        console.log(hash);
+        console.log(user);
+        var passwordIsValid=false;
+        if(password===hash)
+        passwordIsValid=true;
         if (!passwordIsValid) {
           return res.status(201).send({
             accessToken: null,
@@ -63,12 +62,13 @@ router.post("/login", async (req, res) => {
         }
         else
         {
-          res.status(201).json(jwt_token);
-        }
-      const token = createToken(user._id);
+            const token = createToken(user._id);
       sessionstorage.setItem("jwt", token);
   
       res.status(200).json(token);
+          
+        }
+      
     } catch (error) {
       console.log(error);
      
