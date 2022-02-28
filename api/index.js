@@ -8,12 +8,16 @@ const app = express();
 /*Generate JWT Token Secret, stored as env var
 console.log(require('crypto').randomBytes(64).toString('hex'))*/
 
+const uploadRoutes = require('./routes/uploadRoutes');
+const authRoutes = require('./routes/authRoutes');
+
+const app = express();
 const PORT = 8080;
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.DB_URI, {
+mongoose.connect(process.env.DB_URI || 'mongodb+srv://admin:admin123@cluster0.gqru4.mongodb.net/cnp-portal?retryWrites=true&w=majority', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
@@ -25,3 +29,7 @@ mongoose.connect(process.env.DB_URI, {
 app.get("/", function(req, res) {
     res.send("Great World!");
 });
+
+//Routes
+app.use(authRoutes);
+app.use(uploadRoutes);
