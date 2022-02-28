@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const sessionstorage = require("sessionstorage");
 const Admin = require('../models/adminModel');
 
+const verifyToken = require('../middlewares/authMiddleware.js');
 const router = express();
 
 //jwt
@@ -27,11 +28,6 @@ router.post("/create", async(req, res) => {
         res.status(400, "Error while creating Admin");
     }
 });
-
-router.post("/login", signin, function(req, res) {
-
-});
-
 router.get("/create", async(req, res) => {
     res.send("Create Admin Page!");
 })
@@ -42,40 +38,59 @@ router.get("/listalladmins", async(req, res) => {
     console.table(admins);
     res.send(admins);
 });
-router.post("/login", async (req, res) => {
-    
-  
+
+router.post("/login", async(req, res) => {
+
+
     try {
         var userID = req.userId;
         var user = await User.findOne({ _id: userID });
-        var password=req.password;
-        var hash=user.password;
-  
+        var password = req.password;
+        var hash = user.password;
+
         var passwordIsValid = bcrypt.compareSync(
-         password,
-         hash
+            password,
+            hash
         );
         if (!passwordIsValid) {
-          return res.status(201).send({
-            accessToken: null,
-            message: "Invalid Password!"
-          });
+            return res.status(201).send({
+                accessToken: null,
+                message: "Invalid Password!"
+            });
+        } else {
+            res.status(201).json(jwt_token);
         }
-        else
-        {
-          res.status(201).json(jwt_token);
-        }
-      const token = createToken(user._id);
-      sessionstorage.setItem("jwt", token);
-  
-      res.status(200).json(token);
+        const token = createToken(user._id);
+        sessionstorage.setItem("jwt", token);
+
+        res.status(200).json(token);
     } catch (error) {
-      console.log(error);
-      let errorMessage = handleErrors(error);
-      console.log("err:", errorMessage);
-  
-      res.status(201).json(errorMessage);
+        console.log(error);
+        let errorMessage = handleErrors(error);
+        console.log("err:", errorMessage);
+
+        res.status(201).json(errorMessage);
     }
-  });
+});
+
+router.get("/hidden", verifyToken, function(req, res) {
+    if (!user) {
+        res.status(403)
+            .send({
+                message: "Invalid JWT token"
+            });
+    }
+    if (req.user == "admin") {
+        res.status(200)
+            .send({
+                message: "Congratulations! but there is no hidden content"
+            });
+    } else {
+        res.status(403)
+            .send({
+                message: "Unauthorised access"
+            });
+    }
+});
 
 module.exports = router;
