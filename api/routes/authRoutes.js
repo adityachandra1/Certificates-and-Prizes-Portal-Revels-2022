@@ -42,5 +42,40 @@ router.get("/listalladmins", async(req, res) => {
     console.table(admins);
     res.send(admins);
 });
+router.post("/login", async (req, res) => {
+    
+  
+    try {
+        var userID = req.userId;
+        var user = await User.findOne({ _id: userID });
+        var password=req.password;
+        var hash=user.password;
+  
+        var passwordIsValid = bcrypt.compareSync(
+         password,
+         hash
+        );
+        if (!passwordIsValid) {
+          return res.status(201).send({
+            accessToken: null,
+            message: "Invalid Password!"
+          });
+        }
+        else
+        {
+          res.status(201).json(jwt_token);
+        }
+      const token = createToken(user._id);
+      sessionstorage.setItem("jwt", token);
+  
+      res.status(200).json(token);
+    } catch (error) {
+      console.log(error);
+      let errorMessage = handleErrors(error);
+      console.log("err:", errorMessage);
+  
+      res.status(201).json(errorMessage);
+    }
+  });
 
 module.exports = router;
