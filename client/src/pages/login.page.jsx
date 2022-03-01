@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input, Button } from "antd";
 import logo from "./images/login/logo.png";
+import wave1 from "./images/login/wave1.svg";
 
 import "./CSS/login.css";
 
@@ -111,6 +112,7 @@ const Login = () => {
           <button onClick={onFinish}>Submit</button>
         </form>
       </div>
+      <img src={wave1} alt="" className="wave-svg" />
     </div>
   );
 };
