@@ -1,0 +1,17 @@
+[
+  {
+    "name": "A",
+    "email": "a@email.com",
+    "event": "Event A"
+  },
+  {
+    "name": "B",
+    "email": "b@email.com",
+    "event": "Event B"
+  },
+  {
+    "name": "C",
+    "email": "c@email.com",
+    "event": "Event C"
+  }
+]
