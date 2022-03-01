@@ -9,6 +9,7 @@ console.log(require('crypto').randomBytes(64).toString('hex'))*/
 
 const uploadRoutes = require('./routes/uploadRoutes');
 const authRoutes = require('./routes/authRoutes');
+const mailingRoutes = require('./routes/mailingRoutes');
 
 const app = express();
 const PORT = 8080;
@@ -32,3 +33,4 @@ app.get("/", function(req, res) {
 //Routes
 app.use(authRoutes);
 app.use(uploadRoutes);
+app.use(mailingRoutes);
