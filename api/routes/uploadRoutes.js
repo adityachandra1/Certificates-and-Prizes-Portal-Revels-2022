@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express();
 const multer = require('multer');
-const excelToJson = require("../file_handling/excel.js")
+const toJson = require("../file_handling/excel.js")
 
 const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -19,7 +19,7 @@ router.post("/upload", upload.single("email_list"), (req, res) => {
         return;
     }
     console.log(req.file);
-    excelToJson(req.file.path)
+    toJson(req.file.path, req.file.destination + "//email_list.json")
     res.send("File Uploaded!");
 });
 
