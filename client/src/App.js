@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Event from "./pages/Event.page";
 import Preview from './pages/Preview.page';
 import Domain from './pages/domain.page';
+import Upload from "./pages/Upload.page";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route exact path="/event" element={<Event />} />
         <Route exact path="/domain" element={<Domain />} />
         <Route exact path="/certificates-preview" element={<Preview />} />
+        <Route exact path="/upload-winners" element={<Upload />} />
       </Routes>
     </div>
   );
