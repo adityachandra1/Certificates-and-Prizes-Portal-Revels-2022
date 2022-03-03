@@ -7,10 +7,10 @@ import { useState } from "react";
 
 const Preview = () => {
   const [cat, setCat] = useState("");
-  const categories = [
+  const [categories, setCategories] = useState([
     {
       name: "Xventure",
-      selected: "selected-box",
+      selected: "",
     },
     {
       name: "Iridescent",
@@ -28,10 +28,25 @@ const Preview = () => {
       name: "hii",
       selected: "not-selected",
     },
-  ];
+  ]);
+
   const onselectCategory = (e) => {
-    // console.log(e.target.value);
+    // console.log(e);
     setCat(e.target.value);
+    // console.log(e.target.value);
+    const tempcat = [...categories];
+    tempcat.map((d) => {
+      if (d.name == e.target.value) {
+        if (d.selected == "selected-box") {
+          d.selected = "not-selected";
+        } else {
+          d.selected = "selected-box";
+        }
+      } else {
+        d.selected = "not-selected";
+      }
+      setCategories(tempcat);
+    });
   };
   return (
     <div className="main-preview-container">
@@ -55,6 +70,7 @@ const Preview = () => {
                 selected={d.selected}
                 value={d.name}
                 onselectCategory={onselectCategory}
+                key={i}
               />
             );
           })}
