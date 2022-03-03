@@ -1,5 +1,5 @@
 import React from 'react'
-import "../CSS/searchComponent.css";
+import "./CSS/searchComponent.css";
 import logo from "../images/login/logo.png";
 import SubcategoryBox from "./SubcategoryBox";
 import { useState } from "react";
