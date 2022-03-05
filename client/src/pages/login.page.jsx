@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { Form, Input, Button } from "antd";
 import logo from "./images/login/logo.png";
 import wave1 from "./images/login/wave1.svg";
+import wave2 from "./images/login/wave2.svg";
 
 import "./CSS/login.css";
 
-const Login = () => {
+const Login = (e) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const onFinish = async () => {
+  const onFinish = async (e) => {
+    e.preventDefault();
     const json = { email, password };
 
     console.log("Success:", json);
@@ -90,6 +92,7 @@ const Login = () => {
               type="email"
               name=""
               id="email"
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -104,15 +107,19 @@ const Login = () => {
               type="password"
               name=""
               id="password"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          <button onClick={onFinish}>Submit</button>
+          <button onClick={onFinish}>Login to your account</button>
         </form>
       </div>
-      <img src={wave1} alt="" className="wave-svg" />
+      <div className="waves">
+        <img src={wave1} alt="" className="wave-svg1" />
+        <img src={wave2} alt="" className="wave-svg2" />
+      </div>
     </div>
   );
 };
