@@ -1,0 +1,55 @@
+.sub-domain-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #171717;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-container {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 150px;
+  background: linear-gradient(
+    0.25turn,
+    #100b1b 10.42%,
+    rgba(81, 109, 216, 0.817708) 35.94%,
+    rgba(33, 182, 230, 0.628826) 56.25%,
+    rgba(198, 163, 255, 0.54) 76.56%,
+    rgba(245, 127, 237, 0.48) 94.79%
+  );
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+}
+.main-data {
+  max-width: 1000px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  /* flex-wrap: wrap; */
+}
+
+.subdomain-title {
+  color: #fff;
+  /* max-width: 600px; */
+  text-align: center;
+}
+.cat-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.cat-group button {
+  margin: 10px 5px;
+}
+.cat-group button:hover {
+  background-color: #fff;
+}
