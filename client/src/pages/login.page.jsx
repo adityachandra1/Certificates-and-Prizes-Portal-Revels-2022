@@ -24,65 +24,7 @@ const Login = (e) => {
     <div className="login-main-container">
       <div className="login-container">
         <img src={logo} alt="LOGO" />
-        {/* <Form
-          name="basic"
-          labelCol={{
-            span: 10,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          <Form.Item
-            className="form-container"
-            label="Email"
-            name="Email"
-            rules={[
-              {
-                type: "email",
-                required: true,
-                message: "The input is not valid E-mail!",
-              },
-            ]}
-          >
-            <Input
-              placeholder="Enter your Email"
-              className="input"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </Form.Item>
 
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
-          >
-            <Input.Password
-              className="input"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Form.Item>
-
-          <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form> */}
         <form className="login-form-container">
           <div className="form-block">
             <label className="login-form-label">Email </label>
