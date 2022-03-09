@@ -10,6 +10,8 @@ console.log(require('crypto').randomBytes(64).toString('hex'))*/
 const uploadRoutes = require('./routes/uploadRoutes');
 const authRoutes = require('./routes/authRoutes');
 const mailingRoutes = require('./routes/mailingRoutes');
+const certificateRoutes = require('./routes/certificateRoutes');
+const { assertIsOneOf } = require("pdf-lib");
 
 const app = express();
 const PORT = 8080;
@@ -34,3 +36,4 @@ app.get("/", function(req, res) {
 app.use(authRoutes);
 app.use(uploadRoutes);
 app.use(mailingRoutes);
+app.use(certificateRoutes);

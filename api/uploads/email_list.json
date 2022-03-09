@@ -13,5 +13,10 @@
     "name": "C",
     "email": "c@email.com",
     "event": "Event C"
+  },
+  {
+    "name" : "D",
+    "email" : "D@DD.com",
+    "event" : "Event A"
   }
 ]
