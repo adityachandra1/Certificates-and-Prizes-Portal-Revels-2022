@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import wave1 from "./images/login/wave1.svg";
 import wave2 from "./images/login/wave2.svg";
 import LOGO from "./images/domains/logo.png";
 import RevelsMark from "./images/revelsmark.svg";
 import "./CSS/subDomain.css";
+import { Button } from "antd";
+import { useLocation } from "react-router-dom";
 
-const Subdomain = () => {
+const Subdomain = (props) => {
+  const [subDomainList, setSubDomainList] = useState({
+    sports: ["Football", "hockey", "Cricket", "Tennis", "Badminton"],
+    cultural: ["dancing", "singing"],
+    supporting: ["Xventure", "abc", "xyz"],
+  });
+  const location = useLocation();
   return (
     <div className="trial">
+      {console.log(location)}
       <div className="sub-domain-container">
         <div className="nav-container">
           <img className="logo" src={LOGO} alt="logo"></img>
@@ -19,6 +28,10 @@ const Subdomain = () => {
             event
           </h1>
           <div className="cat-group">
+            {subDomainList.sports.map((d) => {
+              return <button>{d}</button>;
+            })}
+            {/* 
             <button>Xventure</button>
             <button>Abc</button>
             <button>Xventure</button>
@@ -34,7 +47,7 @@ const Subdomain = () => {
             <button>Xventure</button>
             <button>Xventure</button>
 
-            <button>Xyz</button>
+            <button>Xyz</button> */}
           </div>
         </div>
       </div>

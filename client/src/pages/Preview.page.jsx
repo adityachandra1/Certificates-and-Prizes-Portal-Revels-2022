@@ -5,6 +5,14 @@ import { useState } from "react";
 import SearchSubCategories from "./components/SearchSubCategories";
 
 const Preview = () => {
+  const [participants, setParticipants] = useState([
+    { name: "Chintan", designation: "Winner" },
+    { name: "Ayush", designation: "Winner" },
+    { name: "Diya", designation: "Winner" },
+    { name: "Shreyansh", designation: "Winner" },
+    { name: "xyz", designation: "Participant" },
+    { name: "abc", designation: "Organizer" },
+  ]);
   return (
     <div className="main-preview-container">
       {/* Left Component */}
@@ -24,14 +32,18 @@ const Preview = () => {
             <h3 className="table-row-header">Preview</h3>
           </div>
           <div className="table-header-underline"></div>
-          <PreviewRow name="Sarah Jones" designation="Winner" />
+
+          {participants.map((d) => {
+            return <PreviewRow name={d.name} designation={d.designation} />;
+          })}
+          {/* <PreviewRow name="Sarah Jones" designation="Winner" />
           <PreviewRow name="Sarah Jones" designation="Winner" />
           <PreviewRow name="Sarah Jones" designation="Winner" />
           <PreviewRow name="Sarah Jones" designation="Participant" />
           <PreviewRow name="Sarah Jones" designation="Participant" />
           <PreviewRow name="Sarah Jones" designation="Organiser" />
           <PreviewRow name="Sarah Jones" designation="Organiser" />
-          <PreviewRow name="Sarah Jones" designation="Organiser" />
+          <PreviewRow name="Sarah Jones" designation="Organiser" /> */}
         </div>
       </div>
     </div>
