@@ -1,67 +1,81 @@
 .search-component {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
 }
 
 .search-component-logo {
-    margin-top: 2em;
-    height: 200px;
-    width: 225px;
+  margin-top: 2em;
+  height: 200px;
+  width: 225px;
 }
 
 .search-heading {
-    background: rgba(0, 0, 0, 0.8);
-    color: #FFFFFF;
-    border-radius: 40px;
-    padding: 0 1em .2em;
-    font-weight: 700;
-    margin-top: 1em;
+  background: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  border-radius: 40px;
+  padding: 0 1em 0.2em;
+  font-weight: 700;
+  margin-top: 1em;
 }
 
 #searchbar {
-    margin-top: 1em;
-    border-radius: 30px;
-    padding: .4em 15em .4em 2em;
-    background: transparent;
-    color: #FFFFFF;
-    border: 3px solid #FFFFFF;
+  margin-top: 1em;
+  border-radius: 30px;
+  padding: 0.4em 15em 0.4em 2em;
+  background: transparent;
+  color: #ffffff;
+  border: 3px solid #ffffff;
 }
 
 #searchbar::placeholder {
-    color: #FFFFFF;
+  color: #ffffff;
 }
 
 .subcategories-container {
-    margin-bottom: 2em;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 2em;
+}
+.subcategories-container::-webkit-scrollbar {
+  display: none;
 }
 
 .subcategories-box {
-    margin-top: 1em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #FFFFFF;
-    font-weight: 700;
-    font-size: 2.2em;
-    width: 250px;
-    height: 137px;
-    background: rgba(0, 0, 0, 0.8);
-    box-sizing: border-box;
-    border-radius: 40px;
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 2.2em;
+  width: 250px;
+  height: 137px;
+  background: rgba(0, 0, 0, 0.8);
+  box-sizing: border-box;
+  border-radius: 40px;
 }
 
 .subcategories-box:hover,
 .subcategories-box:focus {
-    cursor: pointer;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 36.22%, rgba(0, 0, 0, 0) 100%);
-    border: 4px solid #F57FED;
-    color: #FFFFFF;
+  cursor: pointer;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.5) 36.22%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  border: 4px solid #f57fed;
+  color: #ffffff;
 }
 
 #selected-box {
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 36.22%, rgba(0, 0, 0, 0) 100%);
-    border: 4px solid #F57FED;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.5) 36.22%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  border: 4px solid #f57fed;
 }
