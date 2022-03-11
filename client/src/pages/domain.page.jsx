@@ -27,11 +27,9 @@ const Domain = () => {
         </div>
         <div className="domainbtns">
           <Link
-            to={{
-              pathname: "/subdomain",
-              state: {
-                selectedDomain: "sports",
-              },
+            to="/subdomain"
+            state={{
+              selectedDomain: "sports",
             }}
           >
             <button
