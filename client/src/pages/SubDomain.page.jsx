@@ -14,9 +14,12 @@ const Subdomain = (props) => {
     supporting: ["Xventure", "abc", "xyz"],
   });
   const location = useLocation();
+  const current = location.state.selectedDomain;
+
   return (
     <div className="trial">
-      {console.log(location)}
+      {/* {console.log(location.state.selectedDomain)} */}
+      {console.log(current)}
       <div className="sub-domain-container">
         <div className="nav-container">
           <img className="logo" src={LOGO} alt="logo"></img>
@@ -28,8 +31,8 @@ const Subdomain = (props) => {
             event
           </h1>
           <div className="cat-group">
-            {subDomainList.sports.map((d) => {
-              return <button>{d}</button>;
+            {subDomainList.sports.map((d, i) => {
+              return <button key={i}>{d}</button>;
             })}
             {/* 
             <button>Xventure</button>

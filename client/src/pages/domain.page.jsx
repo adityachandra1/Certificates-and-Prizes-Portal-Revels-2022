@@ -4,12 +4,12 @@ import LOGO from "./images/domains/logo.png";
 import { Link } from "react-router-dom";
 
 const Domain = () => {
-  const [domain, setDomain] = useState("");
+  // const [domain, setDomain] = useState("");
 
-  const onSelectDomain = (e) => {
-    setDomain(e.target.value);
-    console.log(e.target.value);
-  };
+  // const onSelectDomain = (e) => {
+  //   setDomain(e.target.value);
+  //   console.log(e.target.value);
+  // };
   return (
     <div className="domainpage">
       <div className="header">
@@ -35,26 +35,40 @@ const Domain = () => {
             <button
               className="Sportsbtn"
               value="sports"
-              onClick={(e) => onSelectDomain(e)}
+              // onClick={(e) => onSelectDomain(e)}
             >
               Sports Category
             </button>
           </Link>
+          <Link
+            to="/subdomain"
+            state={{
+              selectedDomain: "cultural",
+            }}
+          >
+            <button
+              className="culturalbtn"
+              value="cultural"
+              // onClick={(e) => onSelectDomain(e)}
+            >
+              Cultural Category
+            </button>
+          </Link>
 
-          <button
-            className="culturalbtn"
-            value="cultural"
-            onClick={(e) => onSelectDomain(e)}
+          <Link
+            to="/subdomain"
+            state={{
+              selectedDomain: "supporting",
+            }}
           >
-            Cultural Category
-          </button>
-          <button
-            className="Supportingbtn"
-            value="supportings"
-            onClick={(e) => onSelectDomain(e)}
-          >
-            Supporting Category
-          </button>
+            <button
+              className="Supportingbtn"
+              value="supportings"
+              // onClick={(e) => onSelectDomain(e)}
+            >
+              Supporting Category
+            </button>
+          </Link>
         </div>
       </div>
     </div>
