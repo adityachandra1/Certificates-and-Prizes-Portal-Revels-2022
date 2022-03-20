@@ -5,6 +5,8 @@ const fs = require('fs-extra');
 const { PDFDocument } = require('pdf-lib');
 const puppeteer = require('puppeteer');
 const email_list = require('../uploads/email_list.json');
+const Certificate = require('../models/certModel');
+const crypto = require('crypto');
 
 const compile = async function (templateName, data) {
     const filePath = path.join(process.cwd(), 'templates', `${templateName}`.hbs);
@@ -17,13 +19,20 @@ router.post('/cert', async (req, res) => {
         try {
             const browser = await puppeteer.launch();
             const page = await browser.newPage();
-
+            let token = email_list[i].event + crypto.randomBytes(690 / 42).toString('hex');
+            const certi = await Certificate.create({
+                name: email_list[i].name,
+                event: email_list[i].event,
+                email: email_list[i].email,
+                token: token
+            });
+            console.log(certi);
             // content = await compile('certificate' + x, email_list[i]); //compiling certificate template
 
             await page.setContent('<h1> Revels Certificate </h1>');  //link the template here later
             await page.emulateMediaType('screen');
             await page.pdf({
-                path: './certificates/' + email_list[i].name + '_' + email_list[i].event + '.pdf',
+                path: './certificates/' + token + '.pdf',
                 format: 'A4',
                 printBackground: true
             })
