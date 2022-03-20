@@ -11,6 +11,7 @@ const uploadRoutes = require('./routes/uploadRoutes');
 const authRoutes = require('./routes/authRoutes');
 const mailingRoutes = require('./routes/mailingRoutes');
 const certificateRoutes = require('./routes/certificateRoutes');
+const verificationRoutes = require('./routes/verficationRoutes');
 const { assertIsOneOf } = require("pdf-lib");
 
 const app = express();
@@ -37,3 +38,4 @@ app.use(authRoutes);
 app.use(uploadRoutes);
 app.use(mailingRoutes);
 app.use(certificateRoutes);
+app.use(verificationRoutes);
