@@ -1,8 +1,10 @@
 import React from "react";
 import "./CSS/preview.css";
 import PreviewRow from "./components/PreviewRow";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchSubCategories from "./components/SearchSubCategories";
+import { useLocation } from "react-router-dom";
+import domains from "./components/json-data/domains.json";
 
 const Preview = () => {
   const [participants, setParticipants] = useState([
@@ -13,10 +15,22 @@ const Preview = () => {
     { name: "xyz", designation: "Participant" },
     { name: "abc", designation: "Organizer" },
   ]);
+  const [cat, setCat] = useState("");
+  const [categories, setCategories] = useState([]);
+  const location = useLocation();
+  const current = location.state.selectedDomain;
+
+  useEffect(() => {
+    return () => {
+      setCategories(domains[current]);
+      console.log(categories);
+      console.log(domains);
+    };
+  }, []);
   return (
     <div className="main-preview-container">
       {/* Left Component */}
-      <SearchSubCategories />
+      <SearchSubCategories categories={categories} />
 
       {/* Right Component */}
       <div className="preview-component">
