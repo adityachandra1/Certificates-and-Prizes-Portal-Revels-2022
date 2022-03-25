@@ -13,6 +13,9 @@ const certSchema = new mongoose.Schema({
   token: {
     type: String,
   },
+  link:{
+    type: String,
+  }
 });
 
 module.exports = Certificate = mongoose.model('Certificate', certSchema);

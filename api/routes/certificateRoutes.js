@@ -7,8 +7,8 @@ const puppeteer = require('puppeteer');
 const email_list = require('../uploads/email_list.json');
 const Certificate = require('../models/certModel');
 const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 const AWS = require('aws-sdk');
-const { TokenFileWebIdentityCredentials } = require('aws-sdk');
 
 const compile = async function(templateName, data) {
     const filePath = path.join(process.cwd(), 'templates', `${templateName}`.hbs);
@@ -17,7 +17,16 @@ const compile = async function(templateName, data) {
 }
 
 router.post('/cert', async(req, res) => {
-    const tokens = [];
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'adityachandra.dev.testing@gmail.com',
+            //put your email id for testing
+            pass: "Testing*1",
+        }
+    });
+
     for (var i in email_list) {
         try {
             const browser = await puppeteer.launch();
@@ -42,6 +51,28 @@ router.post('/cert', async(req, res) => {
                 printBackground: true
             });
             console.log("Certificate " + i + " generated!");
+
+            const mailOptions = {
+                from: 'adityachandra.dev.testing@gmail.com',
+                to: email_list[i].email,
+                subject: 'CNP Certificate',
+                text: 'CNP-Mailer testing',
+                attachments: [{
+                    filename: email_list[i].name + '.pdf',
+                    contentType: 'application/pdf',
+                    path: './certificates/' + token + '.pdf',
+                }, ]
+            };
+
+            transporter.sendMail(mailOptions, (err, data) => {
+                if (err) {
+                    console.log("Email Not Sent!", err);
+                    return;
+                } else {
+                    console.log(data, "EMAIL SENT!")
+                }
+            });
+
         } catch (e) {
             console.log(e);
             res.status(300).json("Certificate" + i + "Not Generated");
