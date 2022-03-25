@@ -13,6 +13,7 @@ const mailingRoutes = require('./routes/mailingRoutes');
 const certificateRoutes = require('./routes/certificateRoutes');
 const verificationRoutes = require('./routes/verficationRoutes');
 const { assertIsOneOf } = require("pdf-lib");
+const AWS = require('aws-sdk');
 
 const app = express();
 const PORT = 8080;
@@ -27,7 +28,6 @@ mongoose.connect(process.env.DB_URI || 'mongodb+srv://admin:admin123@cluster0.gq
     .then(app.listen(PORT))
     .then(console.log("Connected to DB\nListening to port " + PORT))
     .catch((err) => console.log(err));
-
 
 app.get("/", function(req, res) {
     res.send("Great World!");

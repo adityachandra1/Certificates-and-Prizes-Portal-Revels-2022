@@ -7,19 +7,24 @@ const puppeteer = require('puppeteer');
 const email_list = require('../uploads/email_list.json');
 const Certificate = require('../models/certModel');
 const crypto = require('crypto');
+const AWS = require('aws-sdk');
+const { TokenFileWebIdentityCredentials } = require('aws-sdk');
 
-const compile = async function (templateName, data) {
+const compile = async function(templateName, data) {
     const filePath = path.join(process.cwd(), 'templates', `${templateName}`.hbs);
     const html = await fs.readFile(filePath, 'utf-8');
     return hbs.compile(html)(data);
 }
 
-router.post('/cert', async (req, res) => {
+router.post('/cert', async(req, res) => {
+    const tokens = [];
     for (var i in email_list) {
         try {
             const browser = await puppeteer.launch();
             const page = await browser.newPage();
             let token = email_list[i].event + crypto.randomBytes(690 / 42).toString('hex');
+            token = token.replace(" ", "_");
+            tokens.push(token);
             const certi = await Certificate.create({
                 name: email_list[i].name,
                 event: email_list[i].event,
@@ -29,13 +34,13 @@ router.post('/cert', async (req, res) => {
             console.log(certi);
             // content = await compile('certificate' + x, email_list[i]); //compiling certificate template
 
-            await page.setContent('<h1> Revels Certificate </h1>');  //link the template here later
+            await page.setContent('<h1> Revels Certificate </h1>'); //link the template here later
             await page.emulateMediaType('screen');
             await page.pdf({
                 path: './certificates/' + token + '.pdf',
                 format: 'A4',
                 printBackground: true
-            })
+            });
             console.log("Certificate " + i + " generated!");
         } catch (e) {
             console.log(e);
@@ -43,7 +48,25 @@ router.post('/cert', async (req, res) => {
         }
     }
     res.status(200).json('ALL CERTIFICATES GENERATED');
+
+    console.log(tokens);
+    tokens.forEach(uploadPdfToS3);
 })
+
+function uploadPdfToS3(token) {
+    var params = {
+        Key: token + '.pdf',
+        Body: './certificates/' + token + '.pdf',
+        Bucket: 'cnpportaltest',
+    }
+    var s3 = new AWS.S3();
+    s3.putObject(params, function(err, res) {
+        if (err) {
+            console.log(err, 'err');
+        }
+        console.log(res, 'res');
+    });
+}
 
 //USING PDF-LIB
 // const ORGANISER_CERT_X = 50;
