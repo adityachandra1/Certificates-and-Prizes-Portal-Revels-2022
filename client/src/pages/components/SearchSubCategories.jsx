@@ -2,76 +2,18 @@ import React from "react";
 import "./CSS/searchComponent.css";
 import logo from "../images/login/logo.png";
 import SubcategoryBox from "./SubcategoryBox";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const SearchSubCategories = (props) => {
   const [cat, setCat] = useState("");
-  const [categories, setCategories] = useState([
-    {
-      name: "Anubhuti",
-      selected: "",
-    },
-    {
-      name: "Ampersand",
-      selected: "not-selected",
-    },
-    {
-      name: "Ergo",
-      selected: "not-selected",
-    },
-    {
-      name: "Psychus",
-      selected: "not-selected",
-    },
-    {
-      name: "Kalakriti",
-      selected: "not-selected",
-    },
-    {
-      name: "Crescendo",
-      selected: "not-selected",
-    },
-    {
-      name: "Footloose",
-      selected: "not-selected",
-    },
-    {
-      name: "Haute Couture",
-      selected: "not-selected",
-    },
-    {
-      name: "Animania",
-      selected: "not-selected",
-    },
-    {
-      name: "Xventure",
-      selected: "not-selected",
-    },
-    {
-      name: "Human Library",
-      selected: "not-selected",
-    },
-    {
-      name: "Lensation",
-      selected: "not-selected",
-    },
-    {
-      name: "Iridescent",
-      selected: "not-selected",
-    },
-    {
-      name: "Altaebir",
-      selected: "not-selected",
-    },
-    {
-      name: "Consulere",
-      selected: "not-selected",
-    },
-    {
-      name: "Dramebaaz",
-      selected: "not-selected",
-    },
-  ]);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    return () => {
+      setCategories(props.categories);
+      console.log(props);
+    };
+  }, [props.catagories]);
 
   const onselectCategory = (e) => {
     // console.log(e);
@@ -104,7 +46,7 @@ const SearchSubCategories = (props) => {
         />
       </div>
       <div className="subcategories-container">
-        {categories.map((d, i) => {
+        {props.categories.map((d, i) => {
           return (
             <SubcategoryBox
               name={d.name}
