@@ -35,13 +35,7 @@ router.post('/cert', async(req, res) => {
             let token = email_list[i].event + crypto.randomBytes(690 / 42).toString('hex');
             token = token.replace(" ", "_");
             tokens.push(token);
-            const certi = await Certificate.create({
-                name: email_list[i].name,
-                event: email_list[i].event,
-                email: email_list[i].email,
-                token: token
-            });
-            console.log(certi);
+
             // content = await compile('certificate' + x, email_list[i]); //compiling certificate template
 
             await page.setContent('<h1> Revels Certificate </h1>'); //link the template here later
@@ -83,11 +77,17 @@ router.post('/cert', async(req, res) => {
             };
             s3.upload(params, (err, data) => {
                 if (err) {
-                    console.log(err)
+                    console.log(err);
                 }
-                console.log(data)
+                console.log(data);
+                const certi = Certificate.create({
+                    name: email_list[i].name,
+                    event: email_list[i].event,
+                    email: email_list[i].email,
+                    token: token,
+                    link: data.Location,
+                });
             });
-
         } catch (e) {
             console.log(e);
             res.status(300).json("Certificate" + i + "Not Generated");
