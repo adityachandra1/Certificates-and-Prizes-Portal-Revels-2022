@@ -33,7 +33,7 @@ router.post('/cert', async(req, res) => {
             const browser = await puppeteer.launch();
             const page = await browser.newPage();
             let token = email_list[i].event + crypto.randomBytes(690 / 42).toString('hex');
-            token = token.replace(" ", "_");
+            token = token.replace(" ", "");
             tokens.push(token);
 
             // content = await compile('certificate' + x, email_list[i]); //compiling certificate template
