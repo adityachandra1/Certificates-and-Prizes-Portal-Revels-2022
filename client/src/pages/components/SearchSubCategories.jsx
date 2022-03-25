@@ -1,38 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./CSS/searchComponent.css";
 import logo from "../images/login/logo.png";
 import SubcategoryBox from "./SubcategoryBox";
-import { useState, useEffect } from "react";
 
 const SearchSubCategories = (props) => {
-  const [cat, setCat] = useState("");
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(...props.categories);
 
   useEffect(() => {
-    return () => {
-      setCategories(props.categories);
-      console.log(props);
-    };
-  }, [props.catagories]);
+    setCategories(props.categories);
+  }, [props.currentCategory]);
 
-  const onselectCategory = (e) => {
-    // console.log(e);
-    setCat(e.target.value);
-    // console.log(e.target.value);
-    const tempcat = [...categories];
-    tempcat.map((d) => {
-      if (d.name == e.target.value) {
-        if (d.selected == "selected-box") {
-          d.selected = "not-selected";
-        } else {
-          d.selected = "selected-box";
-        }
-      } else {
-        d.selected = "not-selected";
-      }
-      setCategories(tempcat);
-    });
-  };
+  // const onselectCategory = (e) => {
+  //   props.setCurrentCategory(e.target.value);
+  //   const tempcat = [...categories];
+  //   tempcat.map((d) => {
+  //     if (d.name == e.target.value) {
+  //       if (d.selected == "selected-box") {
+  //         d.selected = "not-selected";
+  //       } else {
+  //         d.selected = "selected-box";
+  //       }
+  //     } else {
+  //       d.selected = "not-selected";
+  //     }
+  //     setCategories(tempcat);
+  //   });
+  // };
   return (
     <div className="search-component">
       <img className="search-component-logo" src={logo} alt="LOGO" />
@@ -46,20 +39,21 @@ const SearchSubCategories = (props) => {
         />
       </div>
       <div className="subcategories-container">
-        {props.categories.map((d, i) => {
-          return (
-            <SubcategoryBox
-              name={d.name}
-              selected={d.selected}
-              value={d.name}
-              onselectCategory={onselectCategory}
-              key={i}
-            />
-          );
-        })}
-        {/* <SubcategoryBox name="Xventure" selected="selected-box" />
-          <SubcategoryBox name="Iridescent" />
-          <SubcategoryBox name="Psychus" /> */}
+        {props &&
+          props.categories &&
+          props.categories.map((d, i) => {
+            return (
+              <SubcategoryBox
+                name={d.name}
+                selected={d.selected}
+                value={d.name}
+                onselectCategory={() => {
+                  props.setCurrentCategory(d.name);
+                }}
+                key={i}
+              />
+            );
+          })}
       </div>
     </div>
   );
