@@ -17,7 +17,8 @@ const compile = async function(templateName, data) {
 }
 
 router.post('/cert', async(req, res) => {
-
+    const tokens = [];
+    var s3 = new AWS.S3();
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -73,31 +74,31 @@ router.post('/cert', async(req, res) => {
                 }
             });
 
+            const fileName = './certificates/' + token + '.pdf';
+            const content = fs.readFileSync(fileName);
+            const params = {
+                Bucket: process.env.AWS_BUCKET_NAME,
+                Key: `${token}.pdf`,
+                Body: content
+            };
+            s3.upload(params, (err, data) => {
+                if (err) {
+                    console.log(err)
+                }
+                console.log(data)
+            });
+
         } catch (e) {
             console.log(e);
             res.status(300).json("Certificate" + i + "Not Generated");
         }
     }
-    res.status(200).json('ALL CERTIFICATES GENERATED');
 
     console.log(tokens);
-    tokens.forEach(uploadPdfToS3);
-})
+    //tokens.forEach(uploadPdfToS3);
 
-function uploadPdfToS3(token) {
-    var params = {
-        Key: token + '.pdf',
-        Body: './certificates/' + token + '.pdf',
-        Bucket: 'cnpportaltest',
-    }
-    var s3 = new AWS.S3();
-    s3.putObject(params, function(err, res) {
-        if (err) {
-            console.log(err, 'err');
-        }
-        console.log(res, 'res');
-    });
-}
+    res.status(200).json('ALL CERTIFICATES GENERATED');
+})
 
 //USING PDF-LIB
 // const ORGANISER_CERT_X = 50;
