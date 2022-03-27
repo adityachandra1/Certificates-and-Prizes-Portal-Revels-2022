@@ -55,7 +55,7 @@ const Login = (e) => {
             />
           </div>
 
-          <button onClick={onFinish}>Login to your account</button>
+          <button onClick={onFinish}>Login</button>
         </form>
       </div>
       <div className="waves">

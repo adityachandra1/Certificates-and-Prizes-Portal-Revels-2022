@@ -14,9 +14,6 @@ const Domain = () => {
     <div className="domainpage">
       <div className="header">
         <img className="logo" src={LOGO} alt="logo"></img>
-        <Link to="/" className="loginbtn">
-          Log in
-        </Link>
       </div>
       <div className="curve"></div>
       <div className="mainbody">
