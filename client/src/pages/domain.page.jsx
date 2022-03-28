@@ -30,7 +30,7 @@ const Domain = () => {
             }}
           >
             <button
-              className="Sportsbtn"
+              className="Sportsbtn Sportsbtnm"
               value="sports"
               // onClick={(e) => onSelectDomain(e)}
             >
@@ -44,7 +44,7 @@ const Domain = () => {
             }}
           >
             <button
-              className="culturalbtn"
+              className="culturalbtn culturalbtnm"
               value="cultural"
               // onClick={(e) => onSelectDomain(e)}
             >
@@ -59,7 +59,7 @@ const Domain = () => {
             }}
           >
             <button
-              className="Supportingbtn"
+              className="Supportingbtn Supportingbtnm"
               value="supportings"
               // onClick={(e) => onSelectDomain(e)}
             >
