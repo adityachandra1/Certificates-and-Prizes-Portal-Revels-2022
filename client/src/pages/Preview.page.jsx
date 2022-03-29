@@ -1,10 +1,11 @@
 import React from "react";
 import "./CSS/preview.css";
 import PreviewRow from "./components/PreviewRow";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SearchSubCategories from "./components/SearchSubCategories";
 import { useLocation } from "react-router-dom";
 import domains from "./components/json-data/domains.json";
+import { Button } from "antd";
 
 const Preview = () => {
   const [participants, setParticipants] = useState([
@@ -18,10 +19,10 @@ const Preview = () => {
   const [currentCategory, setCurrentCategory] = useState(null);
   const location = useLocation();
   const current = location.state.selectedDomain;
+
   return (
     <div className="main-preview-container">
       {/* Left Component */}
-
       <SearchSubCategories
         categories={domains[current]}
         currentCategory={currentCategory}
@@ -40,6 +41,7 @@ const Preview = () => {
             <div className="preview-underline"></div>
             <h1 className="preview-subheading">Preview of the certificates</h1>
           </div>
+          <Button>Send All Mails</Button>
           <div className="preview-main">
             <div className="preview-table-header">
               <h3 className="table-row-header">Name</h3>
