@@ -66,7 +66,7 @@ router.post('/cert', async (req, res) => {
                 from: 'adityachandra.dev.testing@gmail.com',
                 to: email_list[i].email,
                 subject: 'CNP Certificate',
-                text: 'CNP-Mailer testing',
+                text: 'Your Revels Certificate is here!, you can download your certificate at ' + QRLink,
                 attachments: [{
                     filename: email_list[i].name + '.pdf',
                     contentType: 'application/pdf',
