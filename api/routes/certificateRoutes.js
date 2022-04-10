@@ -40,7 +40,6 @@ router.post('/cert', async(req, res) => {
             let template = await fs.readFile('../certificate-template/index.html', "utf8");
             template = template.replace("{{ first_name }}", email_list[i].name);
             template = template.replace("{{ event_name }}", email_list[i].event);
-            console.log(template);
             await page.setContent(template); //link the template here later
             await page.emulateMediaType('screen');
             await page.pdf({
