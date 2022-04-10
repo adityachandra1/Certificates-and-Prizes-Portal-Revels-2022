@@ -9,14 +9,17 @@ const Certificate = require('../models/certModel');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const AWS = require('aws-sdk');
+const QRCode = require('qrcode');
+var toSJIS = require('qrcode/helper/to-sjis');
 
-const compile = async function(templateName, data) {
+
+const compile = async function (templateName, data) {
     const filePath = path.join(process.cwd(), 'templates', `${templateName}`.hbs);
     const html = await fs.readFile(filePath, 'utf-8');
     return hbs.compile(html)(data);
 }
 
-router.post('/cert', async(req, res) => {
+router.post('/cert', async (req, res) => {
     const tokens = [];
     var s3 = new AWS.S3();
     const transporter = nodemailer.createTransport({
@@ -36,11 +39,20 @@ router.post('/cert', async(req, res) => {
             token = token.replace(" ", "");
             tokens.push(token);
 
+
+            let QRLink = 'https://cnpportaltest.s3.ap-south-1.amazonaws.com/' + token + ".pdf";
+            console.log(QRLink);
+
+
+            let img = await QRCode.toDataURL(QRLink);
+
+
+
             // content = await compile('certificate' + x, email_list[i]); //compiling certificate template
             let template = await fs.readFile('../certificate-template/index.html', "utf8");
             template = template.replace("{{ first_name }}", email_list[i].name);
             template = template.replace("{{ event_name }}", email_list[i].event);
-            console.log(template);
+            // console.log(template);
             await page.setContent(template); //link the template here later
             await page.emulateMediaType('screen');
             await page.pdf({
@@ -59,7 +71,7 @@ router.post('/cert', async(req, res) => {
                     filename: email_list[i].name + '.pdf',
                     contentType: 'application/pdf',
                     path: './certificates/' + token + '.pdf',
-                }, ]
+                },]
             };
 
             transporter.sendMail(mailOptions, (err, data) => {
@@ -67,10 +79,9 @@ router.post('/cert', async(req, res) => {
                     console.log("Email Not Sent!", err);
                     return;
                 } else {
-                    console.log(data, "EMAIL SENT!")
+                    // console.log(data, "EMAIL SENT!")
                 }
             });
-
             const fileName = './certificates/' + token + '.pdf';
             const content = fs.readFileSync(fileName);
             const params = {

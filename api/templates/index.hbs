@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <title>Certificate</title>
+  </head>
+
+  <body>
+    <style>
+      body {
+        background-color: grey;
+      }
+
+      .certicontainer {
+        width: 842px;
+        padding: 10px;
+        background-color: #fff;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .left-banner-1 {
+        background-image: url("./rect1.svg");
+        /* background: #991d1d; */
+        /* box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25); */
+        height: 433px;
+        width: 35px;
+      }
+
+      .left-banner-2 {
+        background-image: url("./rect2.svg");
+        /* background: #991d1d; */
+        /* box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25); */
+        position: absolute;
+        z-index: -1;
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+        height: 387px;
+        width: 35px;
+        left: 17px;
+        top: 0;
+      }
+
+      .left-content {
+        background: linear-gradient(
+          132.74deg,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0.25) 51.03%,
+          rgba(255, 255, 255, 0.1) 100%
+        );
+        backdrop-filter: blur(100px);
+        background-color: black;
+        height: 595px;
+        /* width: 619px; */
+        position: relative;
+        display: flex;
+      }
+
+      .banners {
+        width: 57px;
+      }
+
+      .content {
+        width: 619px;
+      }
+
+      .mit-logo {
+        width: 100%;
+        padding: 0 1rem;
+        background-color: #fff;
+        margin-top: 3rem;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .text-content {
+        padding: 0 1rem;
+        color: #fff;
+      }
+
+      .title {
+        font-weight: 600;
+        font-size: 50px;
+        margin-top: 2rem;
+      }
+
+      h2 {
+        margin: 0;
+        font-weight: 400;
+        font-size: 20px;
+      }
+
+      h3 {
+        margin: 0;
+        font-weight: 500;
+        font-size: 17px;
+      }
+
+      .sub-text-1 {
+        margin: 1rem 0;
+      }
+
+      .prefix {
+        font-size: 22px;
+        font-weight: 600;
+      }
+
+      .namebox {
+        border: 3px solid #ffffff;
+        box-sizing: border-box;
+        /* margin: 1rem 0; */
+        margin-top: 0.2rem;
+        padding: 0.5rem;
+      }
+
+      .boldname {
+        font-weight: 600;
+        font-size: 40px;
+      }
+
+      .light {
+        font-weight: 400;
+        font-size: 40px;
+      }
+
+      .right-content {
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 212px;
+        position: relative;
+      }
+
+      .top-brick {
+        width: 100%;
+        height: 6rem;
+        background-color: #991d1d;
+      }
+
+      .revels-img {
+        position: absolute;
+        top: 3rem;
+      }
+
+      .sign-container {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .name {
+        font-family: Montserrat;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 15px;
+        letter-spacing: 0em;
+        text-align: center;
+      }
+
+      .divider {
+        height: 2px;
+        background-color: black;
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+
+      .designation {
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 15px;
+        letter-spacing: 0em;
+        text-align: center;
+      }
+
+      .alt {
+        margin-top: 0;
+      }
+
+      .bottom-brick {
+        width: 100%;
+        height: 9px;
+        background-color: #991d1d;
+      }
+      .event-text {
+        margin-top: 0.5rem;
+      }
+
+      .eventbox {
+        border: 3px solid #ffffff;
+        box-sizing: border-box;
+        margin-top: 0.6rem;
+        padding: 0.5rem;
+      }
+
+      .eventname {
+        font-size: 24px;
+        font-weight: 400;
+      }
+
+      .description {
+        margin-top: 0.5rem;
+      }
+    </style>
+
+    <div class="certicontainer">
+      <div class="left-content">
+        <div class="banners">
+          <div class="left-banner-1"></div>
+          <div class="left-banner-2"></div>
+        </div>
+        <div class="content">
+          <div class="mit-logo">
+            <img src="./mit.svg" alt="MIT Logo" />
+          </div>
+
+          <div class="text-content">
+            <div class="title">CERTIFICATE</div>
+            <h2>OF APPRECIATION</h2>
+
+            <h3 class="sub-text-1">
+              We acknowledge the excellent service rendered by
+            </h3>
+
+            <div class="prefix">Mr./Ms.</div>
+            <div class="namebox">
+              <div class="boldname">{{ firstname }}</div>
+              <div class="light">{{ lastname }}</div>
+            </div>
+
+            <h3 class="event-text">has participated in the</h3>
+            <div class="eventbox">
+              <div class="eventname">{{ QUIZ }}</div>
+            </div>
+
+            <h3 class="description">
+              in the capacity of a member of the Student Council in Revels'22,
+              the National Cultural and Sports Fest of Manipal Institute of
+              Technology held from 13th to 16th April 2022.
+            </h3>
+          </div>
+        </div>
+        <div class="right-content">
+          <div class="top-brick"></div>
+          <img src="./revels.svg" alt="Revels Logo" class="revels-img" />
+
+          <div class="sign-container">
+            <img src="./sign.svg" alt="Signature" class="signature" />
+            <div class="divider"></div>
+            <div class="name">Comm Dr. Anil Rana</div>
+            <div class="designation">Director</div>
+          </div>
+          <div class="sign-container alt">
+            <img src="./sign.svg" alt="Signature" class="signature" />
+            <div class="divider"></div>
+            <div class="name">Dr. Nagaraj Katagi</div>
+            <div class="designation">Associate Director(S/W)</div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-brick"></div>
+    </div>
+  </body>
+</html>
