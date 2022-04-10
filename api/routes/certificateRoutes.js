@@ -37,8 +37,11 @@ router.post('/cert', async(req, res) => {
             tokens.push(token);
 
             // content = await compile('certificate' + x, email_list[i]); //compiling certificate template
-
-            await page.setContent('<h1> Revels Certificate </h1>'); //link the template here later
+            let template = await fs.readFile('../certificate-template/index.html', "utf8");
+            template = template.replace("{{ first_name }}", email_list[i].name);
+            template = template.replace("{{ event_name }}", email_list[i].event);
+            console.log(template);
+            await page.setContent(template); //link the template here later
             await page.emulateMediaType('screen');
             await page.pdf({
                 path: './certificates/' + token + '.pdf',
