@@ -14,7 +14,9 @@ var toSJIS = require('qrcode/helper/to-sjis');
 
 router.post('/cert', async(req, res) => {
     const tokens = [];
-    // var s3 = new AWS.S3();
+    var s3 = new AWS.S3();
+
+    //LIMIT: 500 per day on gmail
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -39,9 +41,10 @@ router.post('/cert', async(req, res) => {
             console.log(QRLink);
 
             //ADD THIS TO TEMPLATE
-            let img = await QRCode.toDataURL(QRLink);
+            let qr_img = await QRCode.toDataURL(QRLink);
 
-            let template;
+            let  template = await fs.readFile('../certificate-template/appreciation.html', "utf8");
+
             //CHANGE ACCORDING TO THE TEMPLATES
             if(email_list[i].type == "PARTICIPANT"){
                 template = await fs.readFile('../certificate-template/participation.html', "utf8");
@@ -87,24 +90,24 @@ router.post('/cert', async(req, res) => {
             });
             const fileName = './certificates/' + token + '.pdf';
             const content = fs.readFileSync(fileName);
-            // const params = {
-            //     Bucket: process.env.AWS_BUCKET_NAME,
-            //     Key: `${token}.pdf`,
-            //     Body: content
-            // };
-            // s3.upload(params, (err, data) => {
-            //     if (err) {
-            //         console.log(err);
-            //     }
-            //     console.log(data);
-            //     const certi = Certificate.create({
-            //         name: email_list[i].name,
-            //         event: email_list[i].event,
-            //         email: email_list[i].email,
-            //         token: token,
-            //         link: data.Location,
-            //     });
-            // });
+            const params = {
+                Bucket: process.env.AWS_BUCKET_NAME,
+                Key: `${token}.pdf`,
+                Body: content
+            };
+            s3.upload(params, (err, data) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log(data);
+                const certi = Certificate.create({
+                    name: email_list[i].name,
+                    event: email_list[i].event,
+                    email: email_list[i].email,
+                    token: token,
+                    link: data.Location,
+                });
+            });
         } catch (e) {
             console.log(e);
             res.status(300).json("Certificate" + i + "Not Generated");
