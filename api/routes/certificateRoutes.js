@@ -14,7 +14,7 @@ var toSJIS = require('qrcode/helper/to-sjis');
 
 router.post('/cert', async(req, res) => {
     const tokens = [];
-    var s3 = new AWS.S3();
+    // var s3 = new AWS.S3();
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -31,16 +31,27 @@ router.post('/cert', async(req, res) => {
             });
             const page = await browser.newPage();
             let token = email_list[i].event + crypto.randomBytes(690 / 42).toString('hex');
-            token = token.replace(" ", "");
+            token = token.replace(/\s/g, "");
             tokens.push(token);
 
             //////CHANGE THIS ACCORDING TO THE NEW S3 link
             let QRLink = 'https://cnpportaltest.s3.ap-south-1.amazonaws.com/' + token + ".pdf";
             console.log(QRLink);
 
+            //ADD THIS TO TEMPLATE
             let img = await QRCode.toDataURL(QRLink);
 
-            let template = await fs.readFile('../certificate-template/index.html', "utf8");
+            let template;
+            //CHANGE ACCORDING TO THE TEMPLATES
+            if(email_list[i].type == "PARTICIPANT"){
+                template = await fs.readFile('../certificate-template/participation.html', "utf8");
+            }else if(email_list[i].type == "WINNER"){
+                template = await fs.readFile('../certificate-template/winner.html', "utf8");
+            }else if(email_list[i].type == "APPRECIATION"){
+                template = await fs.readFile('../certificate-template/appreciation.html', "utf8");
+            }
+
+
             template = template.replace("{{ first_name }}", email_list[i].name);
             template = template.replace("{{ event_name }}", email_list[i].event);
             await page.setContent(template); //link the template here later
@@ -76,24 +87,24 @@ router.post('/cert', async(req, res) => {
             });
             const fileName = './certificates/' + token + '.pdf';
             const content = fs.readFileSync(fileName);
-            const params = {
-                Bucket: process.env.AWS_BUCKET_NAME,
-                Key: `${token}.pdf`,
-                Body: content
-            };
-            s3.upload(params, (err, data) => {
-                if (err) {
-                    console.log(err);
-                }
-                console.log(data);
-                const certi = Certificate.create({
-                    name: email_list[i].name,
-                    event: email_list[i].event,
-                    email: email_list[i].email,
-                    token: token,
-                    link: data.Location,
-                });
-            });
+            // const params = {
+            //     Bucket: process.env.AWS_BUCKET_NAME,
+            //     Key: `${token}.pdf`,
+            //     Body: content
+            // };
+            // s3.upload(params, (err, data) => {
+            //     if (err) {
+            //         console.log(err);
+            //     }
+            //     console.log(data);
+            //     const certi = Certificate.create({
+            //         name: email_list[i].name,
+            //         event: email_list[i].event,
+            //         email: email_list[i].email,
+            //         token: token,
+            //         link: data.Location,
+            //     });
+            // });
         } catch (e) {
             console.log(e);
             res.status(300).json("Certificate" + i + "Not Generated");
