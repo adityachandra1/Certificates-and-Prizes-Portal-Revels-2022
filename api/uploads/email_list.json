@@ -1,24 +1,30 @@
 [{
-        "name": "A",
+        "name": "Aditya Chandra",
         "email": "adityachandra9898@gmail.com",
-        "event": "System Admin and Web",
+        "event": "System Admin and Web Development",
         "type" : "APPRECIATION"
     },
     {
-        "name": "B",
+        "name": "Aditya Chandra",
         "email": "aditya.chandra1@learner.manipal.edu",
         "event": "Event B",
         "type" : "APPRECIATION"
     },
     {
-        "name": "C",
+        "name": "Varun P B",
         "email": "varunprahladb@gmail.com",
-        "event": "Event C",
+        "event": "Footlose",
         "type" : "APPRECIATION"
     },
     {
         "name": "Yash Gulati",
         "email": "yashgul@gmail.com",
+        "event": "System Admin and Web Development",
+        "type" : "APPRECIATION"
+    },
+    {
+        "name": "someone",
+        "email": "check@check.com",
         "event": "System Admin and Web Development",
         "type" : "APPRECIATION"
     }

@@ -14,7 +14,7 @@ var toSJIS = require('qrcode/helper/to-sjis');
 
 router.post('/cert', async(req, res) => {
     const tokens = [];
-    var s3 = new AWS.S3();
+    // var s3 = new AWS.S3();
 
     //LIMIT: 500 per day on gmail
     const transporter = nodemailer.createTransport({
@@ -51,12 +51,13 @@ router.post('/cert', async(req, res) => {
             }else if(email_list[i].type == "WINNER"){
                 template = await fs.readFile('../certificate-template/winner.html', "utf8");
             }else if(email_list[i].type == "APPRECIATION"){
-                template = await fs.readFile('../certificate-template/appreciation.html', "utf8");
+                template = await fs.readFile('../certificate-template/index2.html', "utf8");
             }
 
 
             template = template.replace("{{ first_name }}", email_list[i].name);
             template = template.replace("{{ event_name }}", email_list[i].event);
+            template = template.replace( "{{ QR }}", qr_img );
             await page.setContent(template); //link the template here later
             await page.emulateMediaType('screen');
             await page.pdf({
@@ -90,24 +91,24 @@ router.post('/cert', async(req, res) => {
             });
             const fileName = './certificates/' + token + '.pdf';
             const content = fs.readFileSync(fileName);
-            const params = {
-                Bucket: process.env.AWS_BUCKET_NAME,
-                Key: `${token}.pdf`,
-                Body: content
-            };
-            s3.upload(params, (err, data) => {
-                if (err) {
-                    console.log(err);
-                }
-                console.log(data);
-                const certi = Certificate.create({
-                    name: email_list[i].name,
-                    event: email_list[i].event,
-                    email: email_list[i].email,
-                    token: token,
-                    link: data.Location,
-                });
-            });
+            // const params = {
+            //     Bucket: process.env.AWS_BUCKET_NAME,
+            //     Key: `${token}.pdf`,
+            //     Body: content
+            // };
+            // s3.upload(params, (err, data) => {
+            //     if (err) {
+            //         console.log(err);
+            //     }
+            //     console.log(data);
+            //     const certi = Certificate.create({
+            //         name: email_list[i].name,
+            //         event: email_list[i].event,
+            //         email: email_list[i].email,
+            //         token: token,
+            //         link: data.Location,
+            //     });
+            // });
         } catch (e) {
             console.log(e);
             res.status(300).json("Certificate" + i + "Not Generated");
