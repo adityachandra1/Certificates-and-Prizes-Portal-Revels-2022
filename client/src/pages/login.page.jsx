@@ -3,21 +3,33 @@ import { Form, Input, Button } from "antd";
 import logo from "./images/login/logo.png";
 import wave1 from "./images/login/wave1.svg";
 import wave2 from "./images/login/wave2.svg";
-
+import axios from "axios";
 import "./CSS/login.css";
+import { useNavigate } from "react-router-dom";
 
-const Login = (e) => {
+const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const onFinish = async (e) => {
     e.preventDefault();
-    const json = { email, password };
 
-    console.log("Success:", json);
-  };
+    axios
+      .post("http://localhost:8080/login", {
+        email: email,
+        password: password,
+      })
+      .then(function (res) {
+        console.log(res);
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+        sessionStorage.setItem("currentUser", JSON.stringify(res));
+        navigate("/event");
+      })
+      .catch(function (error) {
+        console.log(error);
+        navigate("/event");
+      });
   };
 
   return (

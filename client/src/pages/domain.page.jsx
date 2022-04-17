@@ -1,15 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./CSS/choose_domain.css";
 import LOGO from "./images/domains/logo.png";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
+const jwt = sessionStorage.getItem("currentUser");
 const Domain = () => {
-  // const [domain, setDomain] = useState("");
+  const navigate = useNavigate();
+  useEffect(() => {
+    console.log("1");
+    axios
+      .get("http://localhost:8080/checklogin", {
+        headers: {
+          authorization: jwt,
+        },
+      })
+      .then(function (res) {
+        console.log(res);
+      })
+      .catch(function (error) {
+        console.log(error);
+        navigate("/");
+      });
+  });
 
-  // const onSelectDomain = (e) => {
-  //   setDomain(e.target.value);
-  //   console.log(e.target.value);
-  // };
   return (
     <div className="domainpage">
       <div className="header">

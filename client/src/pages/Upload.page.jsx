@@ -1,22 +1,41 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import SearchSubCategories from "./components/SearchSubCategories";
 import "./CSS/upload.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+const jwt = sessionStorage.getItem("currentUser");
 
 const Upload = () => {
-  const [file, setFile] = useState(null);
-   const handleClick = async () =>{
-       console.log(file);
-       alert("Your file has been uploaded!")
+  const navigate = useNavigate();
+  useEffect(() => {
+    console.log("1");
+    axios
+      .get("http://localhost:8080/checklogin", {
+        headers: {
+          authorization: jwt,
+        },
+      })
+      .then(function (res) {
+        console.log(res);
+      })
+      .catch(function (error) {
+        console.log(error);
+        navigate("/");
+      });
+  });
 
-   }
+  const [file, setFile] = useState(null);
+  const handleClick = async () => {
+    console.log(file);
+    alert("Your file has been uploaded!");
+  };
 
   return (
     <div className="main-upload-container">
-
       {/* Left Component */}
       <SearchSubCategories />
 
-      
       {/* Right Component */}
       <div className="upload-container">
         {/* Header */}
@@ -32,10 +51,15 @@ const Upload = () => {
         {/* Main */}
         <div className="upload-main">
           <div className="upload-table-content">
-            <h3 className="table-row-drag">Drag or Upload your file for winner here</h3>
-            <input type="file" onChange={(e) => {
-                setFile(e.target.files[0])
-            }} />
+            <h3 className="table-row-drag">
+              Drag or Upload your file for winner here
+            </h3>
+            <input
+              type="file"
+              onChange={(e) => {
+                setFile(e.target.files[0]);
+              }}
+            />
             <button onClick={handleClick}>&rarr;</button>
           </div>
         </div>

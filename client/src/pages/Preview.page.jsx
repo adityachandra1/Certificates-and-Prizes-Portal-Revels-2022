@@ -1,13 +1,34 @@
 import React from "react";
 import "./CSS/preview.css";
 import PreviewRow from "./components/PreviewRow";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchSubCategories from "./components/SearchSubCategories";
 import { useLocation } from "react-router-dom";
 import domains from "./components/json-data/domains.json";
 import { Button } from "antd";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
+const jwt = sessionStorage.getItem("currentUser");
 const Preview = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    console.log("1");
+    axios
+      .get("http://localhost:8080/checklogin", {
+        headers: {
+          authorization: jwt,
+        },
+      })
+      .then(function (res) {
+        console.log(res);
+      })
+      .catch(function (error) {
+        console.log(error);
+        navigate("/");
+      });
+  });
+
   const [participants, setParticipants] = useState([
     { name: "Chintan", designation: "Winner" },
     { name: "Ayush", designation: "Winner" },
