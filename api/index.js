@@ -16,12 +16,13 @@ const { assertIsOneOf } = require("pdf-lib");
 const AWS = require('aws-sdk');
 
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT;
+const DB_URI = process.env.MONGO_URI;
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.DB_URI || 'mongodb+srv://admin:admin123@cluster0.gqru4.mongodb.net/cnp-portal', {
+mongoose.connect(DB_URI || 'mongodb+srv://admin:admin123@cluster0.gqru4.mongodb.net/cnp-portal', {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
@@ -30,7 +31,7 @@ mongoose.connect(process.env.DB_URI || 'mongodb+srv://admin:admin123@cluster0.gq
     .catch((err) => console.log(err));
 
 app.get("/", function(req, res) {
-    res.send("Great World!");
+    res.send("CNP PORTAL!");
 });
 
 //Routes

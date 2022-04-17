@@ -12,33 +12,29 @@ const AWS = require('aws-sdk');
 const QRCode = require('qrcode');
 var toSJIS = require('qrcode/helper/to-sjis');
 
-
-const compile = async function(templateName, data) {
-    const filePath = path.join(process.cwd(), 'templates', `${templateName}`.hbs);
-    const html = await fs.readFile(filePath, 'utf-8');
-    return hbs.compile(html)(data);
-}
-
 router.post('/cert', async(req, res) => {
     const tokens = [];
     var s3 = new AWS.S3();
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'adityachandra.dev.testing@gmail.com',
+            user: process.env.MAILER_EMAIL,
             //put your email id for testing
-            pass: "Testing*1",
+            pass: process.env.MAILER_PASSWORD,
         }
     });
 
     for (var i in email_list) {
         try {
-            const browser = await puppeteer.launch();
+            const browser = await puppeteer.launch({
+                defaultViewport: {width: 1920, height: 1080}
+            });
             const page = await browser.newPage();
             let token = email_list[i].event + crypto.randomBytes(690 / 42).toString('hex');
             token = token.replace(" ", "");
             tokens.push(token);
 
+            //////CHANGE THIS ACCORDING TO THE NEW S3 link
             let QRLink = 'https://cnpportaltest.s3.ap-south-1.amazonaws.com/' + token + ".pdf";
             console.log(QRLink);
 
@@ -51,15 +47,17 @@ router.post('/cert', async(req, res) => {
             await page.emulateMediaType('screen');
             await page.pdf({
                 path: './certificates/' + token + '.pdf',
-                format: 'A4',
+                // format: 'A4',
+                width: '850px',
+                height: '627px',
                 printBackground: true
             });
             console.log("Certificate " + i + " generated!");
 
             const mailOptions = {
-                from: 'adityachandra.dev.testing@gmail.com',
+                from: process.env.MAILER_EMAIL,
                 to: email_list[i].email,
-                subject: 'CNP Certificate',
+                subject: 'Revels Certificate',
                 text: 'Your Revels Certificate is here!, you can download your certificate at ' + QRLink,
                 attachments: [{
                     filename: email_list[i].name + '.pdf',
@@ -107,32 +105,5 @@ router.post('/cert', async(req, res) => {
 
     res.status(200).json('ALL CERTIFICATES GENERATED');
 })
-
-//USING PDF-LIB
-// const ORGANISER_CERT_X = 50;
-// const ORGANISER_CERT_Y = 600;
-// router.post("/certificate", async(res, req) => {
-//     const existingPDFBytes = fs.readFile('./certificates/sample_cert.pdf', 'Uint8Array' , (err, data)=>{
-//         console.log(data);
-//     });
-
-//     const pdfDoc = await PDFDocument.load(existingPDFBytes);
-
-//     const pages = pdfDoc.getPages;
-//     for (var i in email_list) {
-//         const cert = pages[0];
-//         const { width, height } = cert.getSize();
-
-//         const fontSize = 45;
-//         page.drawText(email_list[i].name, {
-//             x: width/2,
-//             y: height - 4 * fontSize,
-//             size: fontSize,
-//             font: timesRomanFont,
-//             color: rgb(1, 1, 0),
-//         })
-//         const pdfBytes = await pdfDoc.save();
-//     }
-// });
 
 module.exports = router;
