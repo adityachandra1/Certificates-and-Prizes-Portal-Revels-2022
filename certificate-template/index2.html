@@ -98,6 +98,22 @@
             font-size: 17px;
         }
         
+        .heading-content {
+            display: flex;
+            flex-direction: row;
+        }
+        
+        .heading-main {
+            flex: 2;
+        }
+        
+        .qr {
+            width: 120px;
+            height: 120px;
+            background: white;
+            margin-top: 2.7rem;
+        }
+        
         .sub-text-1 {
             margin: 1rem 0;
         }
@@ -221,18 +237,27 @@
                 </div>
 
                 <div class="text-content">
-                    <div class="title">CERTIFICATE</div>
-                    <h2>OF APPRECIATION</h2>
+                    <div class="heading-content">
+                        <div class="heading-main">
+                            <div class="title">CERTIFICATE</div>
+                            <h2>OF APPRECIATION</h2>
 
-                    <h3 class="sub-text-1">
-                        We acknowledge the excellent service rendered by
-                    </h3>
+                            <h3 class="sub-text-1">
+                                We acknowledge the excellent service<br /> rendered by
+                            </h3>
+                        </div>
+                        <!-- ------------ QR -------------- -->
+                        <div class="qr">
+                            <img src="{{ QR }}" alt="{{ QR }}" height="120px" width="120px">
+                        </div>
+                    </div>
+
 
                     <div class="prefix">Mr./Ms.</div>
 
                     <div class="namebox">
                         <div class="boldname">{{ first_name }}</div>
-                        <div class="light">{{ last_name }}</div>
+                        <!-- <div class="light">{{ last_name }}</div> -->
                     </div>
 
                     <h3 class="event-text">has participated in the</h3>
