@@ -1,22 +1,25 @@
-[
-  {
-    "name": "A",
-    "email": "adityachandra9898@gmail.com",
-    "event": "Event A"
-  },
-  {
-    "name": "B",
-    "email": "aditya.chandra1@learner.manipal.edu",
-    "event": "Event B"
-  },
-  {
-    "name": "C",
-    "email": "c@email.com",
-    "event": "Event C"
-  },
-  {
-    "name" : "D",
-    "email" : "D@DD.com",
-    "event" : "Event A"
-  }
+[{
+        "name": "A",
+        "email": "adityachandra9898@gmail.com",
+        "event": "System Admin and Web",
+        "type" : "APPRECIATION"
+    },
+    {
+        "name": "B",
+        "email": "aditya.chandra1@learner.manipal.edu",
+        "event": "Event B",
+        "type" : "APPRECIATION"
+    },
+    {
+        "name": "C",
+        "email": "varunprahladb@gmail.com",
+        "event": "Event C",
+        "type" : "APPRECIATION"
+    },
+    {
+        "name": "Yash Gulati",
+        "email": "yashgul@gmail.com",
+        "event": "System Admin and Web Development",
+        "type" : "APPRECIATION"
+    }
 ]

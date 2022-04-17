@@ -11,7 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
     <title>Certificate</title>
   </head>
 
@@ -234,10 +234,9 @@
             </h3>
 
             <div class="prefix">Mr./Ms.</div>
-
             <div class="namebox">
-              <div class="boldname">{{ SITARAMAN }}</div>
-              <div class="light">{{ S }}</div>
+              <div class="boldname">{{ firstname }}</div>
+              <div class="light">{{ lastname }}</div>
             </div>
 
             <h3 class="event-text">has participated in the</h3>
