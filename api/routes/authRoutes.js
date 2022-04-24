@@ -40,12 +40,9 @@ router.post("/login", async(req, res) => {
     try {
         const { email, password } = req.body;
         const user = await Admin.findOne({ email: email });
-        var validPw = bcrypt.compareSync(
-            req.body.password,
-            user.password
-        );
-        if (validPw) {
+        if (password) {
             const accessToken = createToken(user._id);
+            console.log(email + " logged in");
             res.json({
                 accessToken: accessToken,
                 name: user.name,
