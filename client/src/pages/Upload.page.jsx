@@ -9,7 +9,8 @@ const jwt = sessionStorage.getItem("currentUser");
 const Upload = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("1");
+    const jwt = JSON.parse(sessionStorage.getItem("currentUser"));
+    console.log(jwt);
     axios
       .get("http://localhost:8080/checklogin", {
         headers: {
@@ -23,11 +24,16 @@ const Upload = () => {
         console.log(error);
         navigate("/");
       });
-  });
+  }, []);
 
   const [file, setFile] = useState(null);
   const handleClick = async () => {
     console.log(file);
+    const formData = new FormData();
+    formData.append("file", this.state.file);
+    axios.post("http://localhost:8080/upload", formData, {}).then((res) => {
+      console.log(res);
+    });
     alert("Your file has been uploaded!");
   };
 

@@ -13,7 +13,8 @@ const jwt = sessionStorage.getItem("currentUser");
 const Preview = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("1");
+    const jwt = JSON.parse(sessionStorage.getItem("currentUser"));
+    console.log(jwt);
     axios
       .get("http://localhost:8080/checklogin", {
         headers: {
@@ -27,7 +28,7 @@ const Preview = () => {
         console.log(error);
         navigate("/");
       });
-  });
+  }, []);
 
   const [participants, setParticipants] = useState([
     { name: "Chintan", designation: "Winner" },

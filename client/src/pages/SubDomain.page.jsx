@@ -13,7 +13,8 @@ const jwt = sessionStorage.getItem("currentUser");
 const Subdomain = (props) => {
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("1");
+    const jwt = JSON.parse(sessionStorage.getItem("currentUser"));
+    console.log(jwt);
     axios
       .get("http://localhost:8080/checklogin", {
         headers: {
@@ -27,7 +28,7 @@ const Subdomain = (props) => {
         console.log(error);
         navigate("/");
       });
-  });
+  }, []);
 
   const [subDomainList, setSubDomainList] = useState({
     sports: ["Football", "hockey", "Cricket", "Tennis", "Badminton"],

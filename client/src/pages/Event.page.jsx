@@ -4,13 +4,13 @@ import "./CSS/event.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const jwt = sessionStorage.getItem("currentUser");
 const Event = () => {
   const [file, setFile] = useState(null);
 
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("1");
+    const jwt = JSON.parse(sessionStorage.getItem("currentUser"));
+    console.log(jwt);
     axios
       .get("http://localhost:8080/checklogin", {
         headers: {
@@ -24,7 +24,7 @@ const Event = () => {
         console.log(error);
         navigate("/");
       });
-  });
+  }, []);
 
   const handleClick = async () => {
     console.log(file);

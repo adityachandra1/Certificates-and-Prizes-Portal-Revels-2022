@@ -9,7 +9,8 @@ const jwt = sessionStorage.getItem("currentUser");
 const Domain = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("1");
+    const jwt = JSON.parse(sessionStorage.getItem("currentUser"));
+    console.log(jwt);
     axios
       .get("http://localhost:8080/checklogin", {
         headers: {
@@ -23,7 +24,7 @@ const Domain = () => {
         console.log(error);
         navigate("/");
       });
-  });
+  }, []);
 
   return (
     <div className="domainpage">

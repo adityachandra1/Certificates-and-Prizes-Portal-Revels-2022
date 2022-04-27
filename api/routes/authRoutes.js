@@ -65,7 +65,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/hidden", verifyToken, (req, res) => {
+router.get("/checklogin", verifyToken, (req, res) => {
   res.send("Hello");
 });
 

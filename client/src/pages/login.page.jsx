@@ -21,14 +21,19 @@ const Login = () => {
         password: password,
       })
       .then(function (res) {
-        console.log(res);
+        console.log(res.data.accessToken);
 
-        sessionStorage.setItem("currentUser", JSON.stringify(res));
+        sessionStorage.setItem(
+          "currentUser",
+          JSON.stringify(res.data.accessToken)
+        );
+        const jwt = JSON.parse(sessionStorage.getItem("currentUser"));
+        console.log(jwt);
+
         navigate("/event");
       })
       .catch(function (error) {
         console.log(error);
-        navigate("/event");
       });
   };
 
@@ -37,7 +42,7 @@ const Login = () => {
       <div className="login-container">
         <img src={logo} alt="LOGO" />
 
-        <form className="login-form-container">
+        <form className="login-form-container" onSubmit={onFinish}>
           <div className="form-block">
             <label className="login-form-label">Email </label>
             <br />
@@ -67,7 +72,7 @@ const Login = () => {
             />
           </div>
 
-          <button onClick={onFinish}>Login</button>
+          <button>Login</button>
         </form>
       </div>
       <div className="waves">
