@@ -29,24 +29,30 @@
       }
 
       .left-banner-1 {
-        background-image: url("./rect1.svg");
-        /* background: #991d1d; */
-        /* box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25); */
-        height: 433px;
         width: 35px;
+        height: 433px;
+        left: 5px;
+        top: 9px;
+        background: {{ACCENT_COLOR}};
+        box-shadow: 0 0 10px 5px rgba(0,0,0,0.75);
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
       }
 
       .left-banner-2 {
-        background-image: url("./rect2.svg");
-        /* background: #991d1d; */
-        /* box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25); */
         position: absolute;
-        z-index: -1;
-        clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
-        height: 387px;
-        width: 35px;
-        left: 17px;
-        top: 0;
+            width: 35px;
+            height: 387px;
+            left: 17px;
+            top: 8.5px;
+            background: {{ACCENT_COLOR}};
+            z-index: -1;
+            box-shadow: 0 0 10px 5px rgba(0,0,0,0.75);
+
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+            height: 387px;
+            width: 35px;
+            left: 17px;
+            top: 0;
       }
 
       .left-content {
@@ -144,7 +150,7 @@
       .top-brick {
         width: 100%;
         height: 6rem;
-        background-color: #991d1d;
+        background-color: {{ACCENT_COLOR}};
       }
 
       .revels-img {
@@ -191,7 +197,7 @@
       .bottom-brick {
         width: 100%;
         height: 9px;
-        background-color: #991d1d;
+        background-color: {{ACCENT_COLOR}};
       }
       .event-text {
         margin-top: 0.5rem;
