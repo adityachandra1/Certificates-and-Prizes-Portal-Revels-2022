@@ -13,13 +13,16 @@ import { ExcelRenderer, OutTable } from "react-excel-renderer";
 const { TextArea } = Input;
 const jwt = sessionStorage.getItem("currentUser");
 
+<<<<<<< HEAD
 const handleSendButtonClick = () => {
   axios.get("http://localhost:8080/cert").then((res) => {});
 };
 
+=======
+>>>>>>> 494f453ceb893207787539f722bdafb574d5d2e8
 const Preview = () => {
   const navigate = useNavigate();
-  const [file, setFile] = useState(null);
+
   useEffect(() => {
     const jwt = JSON.parse(sessionStorage.getItem("currentUser"));
     console.log(jwt);
@@ -39,10 +42,30 @@ const Preview = () => {
   }, []);
 
   const handleClick = async () => {
-    console.log(file);
-    alert("Your file has been uploaded!");
-    //no idea
-    document.write(file.name);
+    axios
+      .post("/http://localhost:8080/upload", {
+        email_list: file,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const sendMails = async () => {
+    axios
+      .post("/http://localhost:8080/cert", {
+        category: current,
+        email_body: mailBody,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const [participants, setParticipants] = useState([
@@ -72,6 +95,8 @@ const Preview = () => {
     { name: "abc", designation: "Organizer" },
   ]);
   const [currentCategory, setCurrentCategory] = useState(null);
+  const [file, setFile] = useState(null);
+  const [mailBody, setMailBody] = useState("");
   const location = useLocation();
   const current = location.state.selectedDomain;
 
@@ -100,9 +125,12 @@ const Preview = () => {
           <br />
           <br />
 
+<<<<<<< HEAD
           <br />
           <br />
 
+=======
+>>>>>>> 494f453ceb893207787539f722bdafb574d5d2e8
           <input
             type="file"
             onChange={(e) => {
@@ -110,20 +138,31 @@ const Preview = () => {
             }}
           />
           <button onClick={handleClick}>Submit</button>
+<<<<<<< HEAD
           <br />
           <br />
+=======
+
+>>>>>>> 494f453ceb893207787539f722bdafb574d5d2e8
           <br />
           <TextArea
             rows={4}
             placeholder="Enter Email Body"
             maxLength={3000}
             id="email-body"
+            value={mailBody}
+            onChange={(e) => setMailBody(e.target.value)}
           />
           <br />
           <br />
 
+<<<<<<< HEAD
           <button>Send All Mails</button>
           <div className="preview-main">
+=======
+          <button onClick={sendMails}>Send All Mails</button>
+          {/* <div className="preview-main">
+>>>>>>> 494f453ceb893207787539f722bdafb574d5d2e8
             <div className="preview-table-header">
               {/* <h3 className="table-row-header">Name</h3>
               <h3 className="table-row-header">Designation</h3> */}
@@ -136,11 +175,12 @@ const Preview = () => {
                 return <PreviewRow name={d.name} designation={d.designation} />;
               })} */}
             {currentCategory === null && <h1>Please select a category</h1>}
-          </div>
+          </div> */}
         </div>
       )}
     </div>
   );
 };
+
 
 export default Preview;
