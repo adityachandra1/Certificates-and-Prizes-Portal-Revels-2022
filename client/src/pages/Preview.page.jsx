@@ -8,7 +8,7 @@ import domains from "./components/json-data/domains.json";
 import { button, Input } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import {ExcelRenderer, OutTable} from 'react-excel-renderer';
+import { ExcelRenderer, OutTable } from "react-excel-renderer";
 
 const { TextArea } = Input;
 const jwt = sessionStorage.getItem("currentUser");
@@ -16,7 +16,6 @@ const jwt = sessionStorage.getItem("currentUser");
 const handleSendButtonClick = () => {
   axios.get("http://localhost:8080/cert").then((res) => {});
 };
-
 
 const Preview = () => {
   const navigate = useNavigate();
@@ -94,42 +93,48 @@ const Preview = () => {
                 ? currentCategory
                 : ""}
             </h1>
-            
+
             <div className="preview-underline"></div>
             <h1 className="preview-subheading">Send the certificates</h1>
           </div>
+          <br />
+          <br />
 
+          <br />
+          <br />
 
           <input
-              type="file"
-              onChange={(e) => {
-                setFile(e.target.files[0]);
-              }}
-            />
-            <button onClick={handleClick}>Submit</button>
-
-<br />
+            type="file"
+            onChange={(e) => {
+              setFile(e.target.files[0]);
+            }}
+          />
+          <button onClick={handleClick}>Submit</button>
+          <br />
+          <br />
+          <br />
           <TextArea
             rows={4}
             placeholder="Enter Email Body"
             maxLength={3000}
             id="email-body"
           />
+          <br />
+          <br />
 
-          
           <button>Send All Mails</button>
           <div className="preview-main">
             <div className="preview-table-header">
-              <h3 className="table-row-header">Name</h3>
-              <h3 className="table-row-header">Designation</h3>
+              {/* <h3 className="table-row-header">Name</h3>
+              <h3 className="table-row-header">Designation</h3> */}
             </div>
-            <div className="table-header-underline"></div>
+            {/* <div className="table-header-underline"></div> */}
 
-            {currentCategory !== null &&
+            {/* {currentCategory !== null &&
               participants &&
               participants.map((d) => {
                 return <PreviewRow name={d.name} designation={d.designation} />;
-              })}
+              })} */}
             {currentCategory === null && <h1>Please select a category</h1>}
           </div>
         </div>
