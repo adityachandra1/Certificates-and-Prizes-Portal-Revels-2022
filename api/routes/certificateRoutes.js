@@ -12,7 +12,7 @@ const AWS = require('aws-sdk');
 const QRCode = require('qrcode');
 var toSJIS = require('qrcode/helper/to-sjis');
 
-router.post('/cert', async(req, res) => {
+router.post('/cert', async (req, res) => {
     const tokens = [];
     const { email_body } = req.body;
     // var s3 = new AWS.S3();
@@ -46,21 +46,72 @@ router.post('/cert', async(req, res) => {
 
             let template = await fs.readFile('../certificate-template/appreciation.html', "utf8");
 
+
+            //else if (email_list[i].type == "FIRST" || email_list[i].type == "SECOND" || email_list[i].type == "THIRD") {
+            //template = await fs.readFile('../certificate-template/index3.html', "utf8");
+            //template = template.replace(/{{ACCENT_COLOR}}/g, "#FFF389");
+
             //CHANGE ACCORDING TO THE TEMPLATES
-            if (email_list[i].type == "PARTICIPANT") {
-                template = await fs.readFile('../certificate-template/index1.html', "utf8");
-            } else if (email_list[i].type == "1" || email_list[i].type == "2" || email_list[i].type == "3") {
-                template = await fs.readFile('../certificate-template/index3.html', "utf8");
-            } else if (email_list[i].type == "APPRECIATION") {
+
+            if (email_list[i].type == "SC") {
                 template = await fs.readFile('../certificate-template/index2.html', "utf8");
+                template = template.replace(/{{ACCENT_COLOR}}/g, "#991D1D");
+                template = template.replace("{{CERT_TEXT}}", "");
+
+            } else if (email_list[i].type == "PARTICIPATION") {
+                template = await fs.readFile('../certificate-template/index1.html', "utf8");
+                template = template.replace(/{{ACCENT_COLOR}}/g, "#1B968E");
+                template = template.replace("{{CERT_TEXT}}", "");
+
+            } else if (email_list[i].type == "CO_CONVENER") {
+                template = await fs.readFile('../certificate-template/index2.html', "utf8");
+                template = template.replace(/{{ACCENT_COLOR}}/g, "#4A7E16");
+                template = template.replace("{{CERT_TEXT}}", "");
+
+            } if (email_list[i].type == "CONVENER") {
+                template = await fs.readFile('../certificate-template/index1.html', "utf8");
+                template = template.replace(/{{ACCENT_COLOR}}/g, "#4A7E16");
+                template = template.replace("{{CERT_TEXT}}", "");
+
+            } else if (email_list[i].type == "VOLUNTEER") {
+                template = await fs.readFile('../certificate-template/index2.html', "utf8");
+                template = template.replace(/{{ACCENT_COLOR}}/g, "#14436F");
+                template = template.replace("{{CERT_TEXT}}", "");
+
+            } else if (email_list[i].type == "EVENT_HEAD") {
+                template = await fs.readFile('../certificate-template/index2.html', "utf8");
+                template = template.replace(/{{ACCENT_COLOR}}/g, "#591173");
+                template = template.replace("{{CERT_TEXT}}", "");
+
+            } else if (email_list[i].type == "STAR_VOLUNTEER") {
+                template = await fs.readFile('../certificate-template/index2.html', "utf8");
+                template = template.replace(/{{ACCENT_COLOR}}/g, "#740E33");
+                template = template.replace("{{CERT_TEXT}}", "");
+
+            } else if (email_list[i].type == "FIRST" || email_list[i].type == "SECOND" || email_list[i].type == "THIRD") {
+                template = await fs.readFile('../certificate-template/index3.html', "utf8");
+                template = template.replace(/{{ACCENT_COLOR}}/g, "#FFF389");
+                template = template.replace("{{CERT_TEXT}}", "");
+
+            } else if (email_list[i].type == "CORRESPONDENT_CREW") {
+                template = await fs.readFile('../certificate-template/index1.html', "utf8");
+                template = template.replace(/{{ACCENT_COLOR}}/g, "#FFA86B");
+                template = template.replace("{{CERT_TEXT}}", "");
+
+            } else if (email_list[i].type == "CATEGORY_HEAD") {
+                template = await fs.readFile('../certificate-template/index1.html', "utf8");
+                template = template.replace(/{{ACCENT_COLOR}}/g, "#C4CCFF");
+                template = template.replace("{{CERT_TEXT}}", "");
+            } else {
+                res.status(300).json("Certificate category not found");
             }
 
-            if (email_list[i].type == "1") {
-                template = template.replace("{{ winner }}", "First");
-            } else if (email_list[i].type == "2") {
-                template = template.replace("{{ winner }}", "Second");
-            } else if (email_list[i].type == "3") {
-                template = template.replace("{{ winner }}", "Third");
+            if (email_list[i].type == "FIRST") {
+                template = template.replace("{{ winner }}", "FIRST");
+            } else if (email_list[i].type == "SECOND") {
+                template = template.replace("{{ winner }}", "SECOND");
+            } else if (email_list[i].type == "THIRD") {
+                template = template.replace("{{ winner }}", "THIRD");
             }
             template = template.replace("{{ first_name }}", email_list[i].name);
             template = template.replace("{{ event_name }}", email_list[i].event);
@@ -79,12 +130,12 @@ router.post('/cert', async(req, res) => {
                 from: process.env.MAILER_EMAIL,
                 to: email_list[i].email,
                 subject: 'Revels Certificate',
-                text: email_body + QRLink,
+                text: email_body + "\n\n You can download/verify your certificate by clicking the link below " + QRLink,
                 attachments: [{
                     filename: email_list[i].name + '.pdf',
                     contentType: 'application/pdf',
                     path: './certificates/' + token + '.pdf',
-                }, ]
+                },]
             };
 
             transporter.sendMail(mailOptions, (err, data) => {
