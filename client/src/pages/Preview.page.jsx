@@ -112,7 +112,7 @@ const Preview = () => {
           <TextArea
             rows={4}
             placeholder="Enter Email Body"
-            maxLength={6}
+            maxLength={3000}
             id="email-body"
           />
 
