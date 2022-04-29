@@ -12,7 +12,7 @@ const AWS = require('aws-sdk');
 const QRCode = require('qrcode');
 var toSJIS = require('qrcode/helper/to-sjis');
 
-router.post('/cert', async (req, res) => {
+router.post('/cert', async(req, res) => {
     const tokens = [];
     const { email_body } = req.body;
     // var s3 = new AWS.S3();
@@ -48,14 +48,20 @@ router.post('/cert', async (req, res) => {
 
             //CHANGE ACCORDING TO THE TEMPLATES
             if (email_list[i].type == "PARTICIPANT") {
-                template = await fs.readFile('../certificate-template/participation.html', "utf8");
-            } else if (email_list[i].type == "WINNER") {
-                template = await fs.readFile('../certificate-template/winner.html', "utf8");
+                template = await fs.readFile('../certificate-template/index1.html', "utf8");
+            } else if (email_list[i].type == "1" || email_list[i].type == "2" || email_list[i].type == "3") {
+                template = await fs.readFile('../certificate-template/index3.html', "utf8");
             } else if (email_list[i].type == "APPRECIATION") {
                 template = await fs.readFile('../certificate-template/index2.html', "utf8");
             }
 
-
+            if (email_list[i].type == "1") {
+                template = template.replace("{{ winner }}", "First");
+            } else if (email_list[i].type == "2") {
+                template = template.replace("{{ winner }}", "Second");
+            } else if (email_list[i].type == "3") {
+                template = template.replace("{{ winner }}", "Third");
+            }
             template = template.replace("{{ first_name }}", email_list[i].name);
             template = template.replace("{{ event_name }}", email_list[i].event);
             template = template.replace("{{ QR }}", qr_img);
@@ -69,29 +75,28 @@ router.post('/cert', async (req, res) => {
                 printBackground: true
             });
             console.log("Certificate " + i + " generated!");
+            // const mailOptions = {
+            //     from: process.env.MAILER_EMAIL,
+            //     to: email_list[i].email,
+            //     subject: 'Revels Certificate',
+            //     text: email_body + QRLink,
+            //     attachments: [{
+            //         filename: email_list[i].name + '.pdf',
+            //         contentType: 'application/pdf',
+            //         path: './certificates/' + token + '.pdf',
+            //     }, ]
+            // };
 
-            const mailOptions = {
-                from: process.env.MAILER_EMAIL,
-                to: email_list[i].email,
-                subject: 'Revels Certificate',
-                text: email_body + QRLink,
-                attachments: [{
-                    filename: email_list[i].name + '.pdf',
-                    contentType: 'application/pdf',
-                    path: './certificates/' + token + '.pdf',
-                },]
-            };
-
-            transporter.sendMail(mailOptions, (err, data) => {
-                if (err) {
-                    console.log("Email Not Sent!", err);
-                    return;
-                } else {
-                    // console.log(data, "EMAIL SENT!")
-                }
-            });
-            const fileName = './certificates/' + token + '.pdf';
-            const content = fs.readFileSync(fileName);
+            // transporter.sendMail(mailOptions, (err, data) => {
+            //     if (err) {
+            //         console.log("Email Not Sent!", err);
+            //         return;
+            //     } else {
+            //         // console.log(data, "EMAIL SENT!")
+            //     }
+            // });
+            // const fileName = './certificates/' + token + '.pdf';
+            // const content = fs.readFileSync(fileName);
             // const params = {
             //     Bucket: process.env.AWS_BUCKET_NAME,
             //     Key: `${token}.pdf`,
