@@ -10,7 +10,6 @@ const map = {
 };
 
 const excelToJson = (path, dest) => {
-    console.log("excel");
     try {
         readXlsxFile(path, { map }).then(({ rows }) => {
             var fs = require('fs');
