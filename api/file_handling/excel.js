@@ -3,9 +3,10 @@ const csv = require('csvtojson');
 
 // Map to read the Excel file into
 const map = {
-    "Name": "name",
-    "Email": "email",
-    "Event Name": "event"
+    "name": "name",
+    "email": "email",
+    "event": "event",
+    "type": "type"
 };
 
 const excelToJson = (path, dest) => {
