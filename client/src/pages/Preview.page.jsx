@@ -13,13 +13,6 @@ import { ExcelRenderer, OutTable } from "react-excel-renderer";
 const { TextArea } = Input;
 const jwt = sessionStorage.getItem("currentUser");
 
-<<<<<<< HEAD
-const handleSendButtonClick = () => {
-  axios.get("http://localhost:8080/cert").then((res) => {});
-};
-
-=======
->>>>>>> 494f453ceb893207787539f722bdafb574d5d2e8
 const Preview = () => {
   const navigate = useNavigate();
 
@@ -122,15 +115,7 @@ const Preview = () => {
             <div className="preview-underline"></div>
             <h1 className="preview-subheading">Send the certificates</h1>
           </div>
-          <br />
-          <br />
 
-<<<<<<< HEAD
-          <br />
-          <br />
-
-=======
->>>>>>> 494f453ceb893207787539f722bdafb574d5d2e8
           <input
             type="file"
             onChange={(e) => {
@@ -138,12 +123,7 @@ const Preview = () => {
             }}
           />
           <button onClick={handleClick}>Submit</button>
-<<<<<<< HEAD
-          <br />
-          <br />
-=======
 
->>>>>>> 494f453ceb893207787539f722bdafb574d5d2e8
           <br />
           <TextArea
             rows={4}
@@ -153,27 +133,20 @@ const Preview = () => {
             value={mailBody}
             onChange={(e) => setMailBody(e.target.value)}
           />
-          <br />
-          <br />
 
-<<<<<<< HEAD
-          <button>Send All Mails</button>
-          <div className="preview-main">
-=======
           <button onClick={sendMails}>Send All Mails</button>
           {/* <div className="preview-main">
->>>>>>> 494f453ceb893207787539f722bdafb574d5d2e8
             <div className="preview-table-header">
-              {/* <h3 className="table-row-header">Name</h3>
-              <h3 className="table-row-header">Designation</h3> */}
+              <h3 className="table-row-header">Name</h3>
+              <h3 className="table-row-header">Designation</h3>
             </div>
-            {/* <div className="table-header-underline"></div> */}
+            <div className="table-header-underline"></div>
 
-            {/* {currentCategory !== null &&
+            {currentCategory !== null &&
               participants &&
               participants.map((d) => {
                 return <PreviewRow name={d.name} designation={d.designation} />;
-              })} */}
+              })}
             {currentCategory === null && <h1>Please select a category</h1>}
           </div> */}
         </div>
