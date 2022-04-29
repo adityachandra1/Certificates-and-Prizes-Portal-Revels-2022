@@ -30,7 +30,7 @@ const Login = () => {
         const jwt = JSON.parse(sessionStorage.getItem("currentUser"));
         console.log(jwt);
 
-        navigate("/event");
+        navigate("/domain");
       })
       .catch(function (error) {
         console.log(error);

@@ -5,9 +5,9 @@ const PreviewRow = (props) => {
     <div className="preview-table-content">
       <div className="table-row-content">{props.name}</div>
       <div className="table-row-content">{props.designation}</div>
-      <div className="">
+      {/* <div className="">
           <a href="" className="show-preview">Show Preview</a>
-      </div>
+      </div> */}
     </div>
   );
 };

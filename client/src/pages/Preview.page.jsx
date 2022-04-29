@@ -5,13 +5,22 @@ import { useState, useEffect } from "react";
 import SearchSubCategories from "./components/SearchSubCategories";
 import { useLocation } from "react-router-dom";
 import domains from "./components/json-data/domains.json";
-import { Button } from "antd";
+import { button, Input } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {ExcelRenderer, OutTable} from 'react-excel-renderer';
 
+const { TextArea } = Input;
 const jwt = sessionStorage.getItem("currentUser");
+
+const handleSendButtonClick = () => {
+  axios.get("http://localhost:8080/cert").then((res) => {});
+};
+
+
 const Preview = () => {
   const navigate = useNavigate();
+  const [file, setFile] = useState(null);
   useEffect(() => {
     const jwt = JSON.parse(sessionStorage.getItem("currentUser"));
     console.log(jwt);
@@ -30,7 +39,32 @@ const Preview = () => {
       });
   }, []);
 
+  const handleClick = async () => {
+    console.log(file);
+    alert("Your file has been uploaded!");
+    //no idea
+    document.write(file.name);
+  };
+
   const [participants, setParticipants] = useState([
+    { name: "Chintan", designation: "Winner" },
+    { name: "Ayush", designation: "Winner" },
+    { name: "Diya", designation: "Winner" },
+    { name: "Shreyansh", designation: "Winner" },
+    { name: "xyz", designation: "Participant" },
+    { name: "abc", designation: "Organizer" },
+    { name: "Chintan", designation: "Winner" },
+    { name: "Ayush", designation: "Winner" },
+    { name: "Diya", designation: "Winner" },
+    { name: "Shreyansh", designation: "Winner" },
+    { name: "xyz", designation: "Participant" },
+    { name: "abc", designation: "Organizer" },
+    { name: "Chintan", designation: "Winner" },
+    { name: "Ayush", designation: "Winner" },
+    { name: "Diya", designation: "Winner" },
+    { name: "Shreyansh", designation: "Winner" },
+    { name: "xyz", designation: "Participant" },
+    { name: "abc", designation: "Organizer" },
     { name: "Chintan", designation: "Winner" },
     { name: "Ayush", designation: "Winner" },
     { name: "Diya", designation: "Winner" },
@@ -60,15 +94,34 @@ const Preview = () => {
                 ? currentCategory
                 : ""}
             </h1>
+            
             <div className="preview-underline"></div>
-            <h1 className="preview-subheading">Preview of the certificates</h1>
+            <h1 className="preview-subheading">Send the certificates</h1>
           </div>
-          <Button>Send All Mails</Button>
+
+
+          <input
+              type="file"
+              onChange={(e) => {
+                setFile(e.target.files[0]);
+              }}
+            />
+            <button onClick={handleClick}>Submit</button>
+
+<br />
+          <TextArea
+            rows={4}
+            placeholder="Enter Email Body"
+            maxLength={6}
+            id="email-body"
+          />
+
+          
+          <button>Send All Mails</button>
           <div className="preview-main">
             <div className="preview-table-header">
               <h3 className="table-row-header">Name</h3>
               <h3 className="table-row-header">Designation</h3>
-              <h3 className="table-row-header">Preview</h3>
             </div>
             <div className="table-header-underline"></div>
 
