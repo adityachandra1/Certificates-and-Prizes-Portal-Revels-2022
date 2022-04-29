@@ -75,28 +75,28 @@ router.post('/cert', async(req, res) => {
                 printBackground: true
             });
             console.log("Certificate " + i + " generated!");
-            // const mailOptions = {
-            //     from: process.env.MAILER_EMAIL,
-            //     to: email_list[i].email,
-            //     subject: 'Revels Certificate',
-            //     text: email_body + QRLink,
-            //     attachments: [{
-            //         filename: email_list[i].name + '.pdf',
-            //         contentType: 'application/pdf',
-            //         path: './certificates/' + token + '.pdf',
-            //     }, ]
-            // };
+            const mailOptions = {
+                from: process.env.MAILER_EMAIL,
+                to: email_list[i].email,
+                subject: 'Revels Certificate',
+                text: email_body + QRLink,
+                attachments: [{
+                    filename: email_list[i].name + '.pdf',
+                    contentType: 'application/pdf',
+                    path: './certificates/' + token + '.pdf',
+                }, ]
+            };
 
-            // transporter.sendMail(mailOptions, (err, data) => {
-            //     if (err) {
-            //         console.log("Email Not Sent!", err);
-            //         return;
-            //     } else {
-            //         // console.log(data, "EMAIL SENT!")
-            //     }
-            // });
-            // const fileName = './certificates/' + token + '.pdf';
-            // const content = fs.readFileSync(fileName);
+            transporter.sendMail(mailOptions, (err, data) => {
+                if (err) {
+                    console.log("Email Not Sent!", err);
+                    return;
+                } else {
+                    // console.log(data, "EMAIL SENT!")
+                }
+            });
+            const fileName = './certificates/' + token + '.pdf';
+            const content = fs.readFileSync(fileName);
             // const params = {
             //     Bucket: process.env.AWS_BUCKET_NAME,
             //     Key: `${token}.pdf`,
