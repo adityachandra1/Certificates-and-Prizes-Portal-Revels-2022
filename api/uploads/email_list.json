@@ -1,31 +1,14 @@
-[{
-        "name": "Varun Balani",
-        "email": "varunprahladb@gmail.com",
-        "event": "Footlose",
-        "type": "1"
-    },
-    {
-        "name": "Varun Balani",
-        "email": "varunprahladb@gmail.com",
-        "event": "Footlose",
-        "type": "2"
-    },
-    {
-        "name": "Varun Balani",
-        "email": "varunprahldb@gmail.com",
-        "event": "Footlose",
-        "type": "3"
-    },
-    {
-        "name": "Varun Balani",
-        "email": "varunprahladb@gmail.com",
-        "event": "Footlose",
-        "type": "APPRECIATION"
-    },
-    {
-        "name": "Varun Balani",
-        "email": "varunprahladb@gmail.com",
-        "event": "Footlose",
-        "type": "PARTICIPATION"
-    }
+[
+  {
+    "name": "Aditya Chandra",
+    "email": "adityachandra9898@gmail.com",
+    "event": "Footlose",
+    "type": "EVENT_HEAD"
+  },
+  {
+    "name": "Aditya Chandra",
+    "email": "adityachandra9898@gmail.com",
+    "event": "Footlose",
+    "type": "FIRST"
+  }
 ]
