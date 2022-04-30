@@ -18,216 +18,221 @@
   <body>
     <style>
       body {
-        background-color: grey;
+          background-color: grey;
       }
 
       .certicontainer {
-        width: 842px;
-        padding: 10px;
-        background-color: #fff;
-        font-family: "Montserrat", sans-serif;
+          width: 842px;
+          padding: 10px;
+          background-color: #fff;
+          font-family: "Montserrat", sans-serif;
       }
 
       .left-banner-1 {
-        background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDMiIGhlaWdodD0iNDQxIiB2aWV3Qm94PSIwIDAgNDMgNDQxIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBmaWx0ZXI9InVybCgjZmlsdGVyMF9kXzE0XzcpIj4KPHBhdGggZD0iTTAgMEgzNVY0MDMuNUwwIDQzM1YwWiIgZmlsbD0iIzk5MUQxRCIvPgo8L2c+CjxkZWZzPgo8ZmlsdGVyIGlkPSJmaWx0ZXIwX2RfMTRfNyIgeD0iMCIgeT0iMCIgd2lkdGg9IjQzIiBoZWlnaHQ9IjQ0MSIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBjb2xvci1pbnRlcnBvbGF0aW9uLWZpbHRlcnM9InNSR0IiPgo8ZmVGbG9vZCBmbG9vZC1vcGFjaXR5PSIwIiByZXN1bHQ9IkJhY2tncm91bmRJbWFnZUZpeCIvPgo8ZmVDb2xvck1hdHJpeCBpbj0iU291cmNlQWxwaGEiIHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAxMjcgMCIgcmVzdWx0PSJoYXJkQWxwaGEiLz4KPGZlT2Zmc2V0IGR4PSI0IiBkeT0iNCIvPgo8ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSIyIi8+CjxmZUNvbXBvc2l0ZSBpbjI9ImhhcmRBbHBoYSIgb3BlcmF0b3I9Im91dCIvPgo8ZmVDb2xvck1hdHJpeCB0eXBlPSJtYXRyaXgiIHZhbHVlcz0iMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMC4yNSAwIi8+CjxmZUJsZW5kIG1vZGU9Im5vcm1hbCIgaW4yPSJCYWNrZ3JvdW5kSW1hZ2VGaXgiIHJlc3VsdD0iZWZmZWN0MV9kcm9wU2hhZG93XzE0XzciLz4KPGZlQmxlbmQgbW9kZT0ibm9ybWFsIiBpbj0iU291cmNlR3JhcGhpYyIgaW4yPSJlZmZlY3QxX2Ryb3BTaGFkb3dfMTRfNyIgcmVzdWx0PSJzaGFwZSIvPgo8L2ZpbHRlcj4KPC9kZWZzPgo8L3N2Zz4K");
-        /* background: #991d1d; */
-        /* box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25); */
-        height: 433px;
-        width: 35px;
+          width: 35px;
+          height: 433px;
+          left: 5px;
+          top: 9px;
+          background: {{ACCENT_COLOR}};
+          box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.75);
+          clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
       }
 
       .left-banner-2 {
-        background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDMiIGhlaWdodD0iMzk2IiB2aWV3Qm94PSIwIDAgNDMgMzk2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBmaWx0ZXI9InVybCgjZmlsdGVyMF9kXzE0XzYpIj4KPHBhdGggZD0iTTAgMC41SDM1VjM1OEwwIDM4Ny41VjAuNVoiIGZpbGw9IiM5OTFEMUQiLz4KPC9nPgo8ZGVmcz4KPGZpbHRlciBpZD0iZmlsdGVyMF9kXzE0XzYiIHg9IjAiIHk9IjAuNSIgd2lkdGg9IjQzIiBoZWlnaHQ9IjM5NSIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBjb2xvci1pbnRlcnBvbGF0aW9uLWZpbHRlcnM9InNSR0IiPgo8ZmVGbG9vZCBmbG9vZC1vcGFjaXR5PSIwIiByZXN1bHQ9IkJhY2tncm91bmRJbWFnZUZpeCIvPgo8ZmVDb2xvck1hdHJpeCBpbj0iU291cmNlQWxwaGEiIHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAxMjcgMCIgcmVzdWx0PSJoYXJkQWxwaGEiLz4KPGZlT2Zmc2V0IGR4PSI0IiBkeT0iNCIvPgo8ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSIyIi8+CjxmZUNvbXBvc2l0ZSBpbjI9ImhhcmRBbHBoYSIgb3BlcmF0b3I9Im91dCIvPgo8ZmVDb2xvck1hdHJpeCB0eXBlPSJtYXRyaXgiIHZhbHVlcz0iMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMC4yNSAwIi8+CjxmZUJsZW5kIG1vZGU9Im5vcm1hbCIgaW4yPSJCYWNrZ3JvdW5kSW1hZ2VGaXgiIHJlc3VsdD0iZWZmZWN0MV9kcm9wU2hhZG93XzE0XzYiLz4KPGZlQmxlbmQgbW9kZT0ibm9ybWFsIiBpbj0iU291cmNlR3JhcGhpYyIgaW4yPSJlZmZlY3QxX2Ryb3BTaGFkb3dfMTRfNiIgcmVzdWx0PSJzaGFwZSIvPgo8L2ZpbHRlcj4KPC9kZWZzPgo8L3N2Zz4K");
-        /* background: #991d1d; */
-        /* box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25); */
-        position: absolute;
-        z-index: -1;
-        clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
-        height: 387px;
-        width: 35px;
-        left: 17px;
-        top: 0;
+          position: absolute;
+          width: 35px;
+          height: 387px;
+          left: 17px;
+          top: 8.5px;
+          background: {{ACCENT_COLOR}};
+          z-index: -1;
+          box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.75);
+          clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+          height: 387px;
+          width: 35px;
+          left: 17px;
+          top: 0;
       }
 
       .left-content {
-        background: linear-gradient(
-          132.74deg,
-          rgba(255, 255, 255, 0.1) 0%,
-          rgba(255, 255, 255, 0.25) 51.03%,
-          rgba(255, 255, 255, 0.1) 100%
-        );
-        backdrop-filter: blur(100px);
-        background-color: black;
-        height: 595px;
-        /* width: 619px; */
-        position: relative;
-        display: flex;
+          background: linear-gradient( 132.74deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.25) 51.03%, rgba(255, 255, 255, 0.1) 100%);
+          backdrop-filter: blur(100px);
+          background-color: black;
+          height: 595px;
+          /* width: 619px; */
+          position: relative;
+          display: flex;
       }
 
       .banners {
-        width: 57px;
+          width: 57px;
       }
 
       .content {
-        width: 619px;
+          width: 619px;
       }
 
       .mit-logo {
-        width: 100%;
-        padding: 0 1rem;
-        background-color: #fff;
-        margin-top: 3rem;
-        height: 3rem;
-        display: flex;
-        align-items: center;
+          width: 100%;
+          padding: 0 1rem;
+          background-color: #fff;
+          margin-top: 3rem;
+          height: 3rem;
+          display: flex;
+          align-items: center;
       }
 
       .text-content {
-        padding: 0 1rem;
-        color: #fff;
+          padding: 0 1rem;
+          color: #fff;
       }
 
       .title {
-        font-weight: 600;
-        font-size: 50px;
-        margin-top: 2rem;
+          font-weight: 600;
+          font-size: 50px;
+          margin-top: 2rem;
       }
 
       h2 {
-        margin: 0;
-        font-weight: 400;
-        font-size: 20px;
+          margin: 0;
+          font-weight: 400;
+          font-size: 20px;
       }
 
       h3 {
-        margin: 0;
-        font-weight: 500;
-        font-size: 17px;
+          margin: 0;
+          font-weight: 500;
+          font-size: 17px;
       }
 
       .heading-content {
-        display: flex;
-        flex-direction: row;
-      }
-
-      .heading-main {
-        flex: 2;
+          display: flex;
+          flex-direction: row;
       }
 
       .qr {
-        width: 120px;
-        height: 120px;
-        background: white;
-        margin-top: 2.7rem;
+          margin-left: 100px;
+          width: 120px;
+          height: 120px;
+          background: white;
+          margin-top: 2.7rem;
       }
 
       .sub-text-1 {
-        margin: 1rem 0;
+          margin: 1rem 0;
       }
 
       .prefix {
-        font-size: 22px;
-        font-weight: 600;
+          font-size: 22px;
+          font-weight: 600;
       }
 
       .namebox {
-        border: 3px solid #ffffff;
-        box-sizing: border-box;
-        /* margin: 1rem 0; */
-        margin-top: 0.2rem;
-        padding: 0.5rem;
+          border: 3px solid #ffffff;
+          box-sizing: border-box;
+          /* margin: 1rem 0; */
+          margin-top: 0.2rem;
+          padding: 0.5rem;
+      }
+
+      .event-text-box {
+          border: 3px solid #ffffff;
+          box-sizing: border-box;
+          /* margin: 1rem 0; */
+          margin-top: .3rem;
+          padding: 0.2rem 5rem;
       }
 
       .boldname {
-        font-weight: 600;
-        font-size: 40px;
+          font-weight: 600;
+          font-size: 40px;
       }
 
       .light {
-        font-weight: 400;
-        font-size: 40px;
+          font-weight: 400;
+          font-size: 40px;
       }
 
       .right-content {
-        background-color: #fff;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 212px;
-        position: relative;
+          background-color: #fff;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 212px;
+          position: relative;
       }
 
       .top-brick {
-        width: 100%;
-        height: 6rem;
-        background-color: #991d1d;
+          width: 100%;
+          height: 6rem;
+          background-color: {{ACCENT_COLOR}};
       }
 
       .revels-img {
-        position: absolute;
-        top: 3rem;
+          position: absolute;
+          top: 3rem;
       }
 
       .sign-container {
-        margin-top: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 1rem;
+          margin-top: auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 1rem;
       }
 
       .name {
-        font-family: Montserrat;
-        font-size: 12px;
-        font-weight: 500;
-        line-height: 15px;
-        letter-spacing: 0em;
-        text-align: center;
+          font-family: Montserrat;
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 15px;
+          letter-spacing: 0em;
+          text-align: center;
       }
 
       .divider {
-        height: 2px;
-        background-color: black;
-        width: 100%;
-        margin: 0.5rem 0;
+          height: 2px;
+          background-color: black;
+          width: 100%;
+          margin: 0.5rem 0;
       }
 
       .designation {
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 15px;
-        letter-spacing: 0em;
-        text-align: center;
+          font-size: 12px;
+          font-weight: 700;
+          line-height: 15px;
+          letter-spacing: 0em;
+          text-align: center;
       }
 
       .alt {
-        margin-top: 0;
+          margin-top: 0;
       }
 
       .bottom-brick {
-        width: 100%;
-        height: 9px;
-        background-color: #991d1d;
+          width: 100%;
+          height: 9px;
+          background-color: {{ACCENT_COLOR}};
       }
 
       .event-text {
-        margin-top: 0.5rem;
+          margin-top: 0.5rem;
       }
 
       .eventbox {
-        border: 3px solid #ffffff;
-        box-sizing: border-box;
-        margin-top: 0.6rem;
-        padding: 0.5rem;
+          border: 3px solid #ffffff;
+          box-sizing: border-box;
+          margin-top: 0.6rem;
+          padding: 0.5rem;
       }
 
       .eventname {
-        font-size: 24px;
-        font-weight: 400;
+          font-size: 24px;
+          font-weight: 400;
       }
 
       .description {
-        margin-top: 0.5rem;
+          margin-top: 0.5rem;
       }
     </style>
 
@@ -251,19 +256,11 @@
                 <div class="title">CERTIFICATE</div>
                 <h2>OF APPRECIATION</h2>
 
-                <h3 class="sub-text-1">
-                  We acknowledge the excellent service<br />
-                  rendered by
-                </h3>
+                <h3 class="sub-text-1">This is to certify that</h3>
               </div>
               <!-- ------------ QR -------------- -->
               <div class="qr">
-                <img
-                  src="{{ QR }}"
-                  alt="{{ QR }}"
-                  height="120px"
-                  width="120px"
-                />
+                <img src="{{ QR }}" alt="{{ QR }}" height="120px" width="120px">
               </div>
             </div>
 
@@ -274,15 +271,22 @@
               <!-- <div class="light">{{ last_name }}</div> -->
             </div>
 
-            <h3 class="event-text">has participated in the</h3>
+            <h3 class="event-text">
+              has secured
+              <span class="event-text">
+                <span class="event-text-box">{{ winner }}</span>
+              </span>
+              position in the event
+            </h3>
+
             <div class="eventbox">
               <div class="eventname">{{ event_name }}</div>
             </div>
 
             <h3 class="description">
-              in the capacity of Co-Convener in Revels'22, the National Cultural
-              and Sports Fest of Manipal Institute of Technology held from 13th
-              to 16th April 2022.
+              in the capacity of a member of the Student Council in Revels'22,
+              the National Cultural and Sports Fest of Manipal Institute of
+              Technology held from 13th to 16th April 2022.
             </h3>
           </div>
         </div>
