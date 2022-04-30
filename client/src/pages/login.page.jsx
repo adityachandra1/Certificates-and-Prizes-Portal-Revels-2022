@@ -33,6 +33,7 @@ const Login = () => {
         navigate("/domain");
       })
       .catch(function (error) {
+        alert("Wrong username or password");
         console.log(error);
       });
   };
