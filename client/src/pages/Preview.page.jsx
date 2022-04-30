@@ -1,6 +1,6 @@
 import React from "react";
 import "./CSS/preview.css";
-import PreviewRow from "./components/PreviewRow";
+// import PreviewRow from "./components/PreviewRow";
 import { useState, useEffect } from "react";
 import SearchSubCategories from "./components/SearchSubCategories";
 import { useLocation } from "react-router-dom";
@@ -8,7 +8,6 @@ import domains from "./components/json-data/domains.json";
 import { button, Input } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { ExcelRenderer, OutTable } from "react-excel-renderer";
 
 const { TextArea } = Input;
 const jwt = sessionStorage.getItem("currentUser");
@@ -35,58 +34,66 @@ const Preview = () => {
   }, []);
 
   const handleClick = async () => {
+    console.log("Uploading File Started")
     axios
-      .post("/http://localhost:8080/upload", {
+      .post("http://localhost:8080/upload", {
         email_list: file,
       })
       .then(function (response) {
         console.log(response);
+        alert(response.message);
       })
       .catch(function (error) {
         console.log(error);
+        alert('Error: ' + error.message);
       });
+      console.log("Uploading File Done");
   };
 
   const sendMails = async () => {
+    console.log("Generating Certificates and Sending Mails");
     axios
-      .post("/http://localhost:8080/cert", {
+      .post("http://localhost:8080/cert", {
         category: current,
         email_body: mailBody,
       })
       .then(function (response) {
         console.log(response);
+        alert("SUCCESSFUL: " + response.data);
       })
       .catch(function (error) {
         console.log(error);
+        alert('Error: ' + error.message);
       });
   };
 
-  const [participants, setParticipants] = useState([
-    { name: "Chintan", designation: "Winner" },
-    { name: "Ayush", designation: "Winner" },
-    { name: "Diya", designation: "Winner" },
-    { name: "Shreyansh", designation: "Winner" },
-    { name: "xyz", designation: "Participant" },
-    { name: "abc", designation: "Organizer" },
-    { name: "Chintan", designation: "Winner" },
-    { name: "Ayush", designation: "Winner" },
-    { name: "Diya", designation: "Winner" },
-    { name: "Shreyansh", designation: "Winner" },
-    { name: "xyz", designation: "Participant" },
-    { name: "abc", designation: "Organizer" },
-    { name: "Chintan", designation: "Winner" },
-    { name: "Ayush", designation: "Winner" },
-    { name: "Diya", designation: "Winner" },
-    { name: "Shreyansh", designation: "Winner" },
-    { name: "xyz", designation: "Participant" },
-    { name: "abc", designation: "Organizer" },
-    { name: "Chintan", designation: "Winner" },
-    { name: "Ayush", designation: "Winner" },
-    { name: "Diya", designation: "Winner" },
-    { name: "Shreyansh", designation: "Winner" },
-    { name: "xyz", designation: "Participant" },
-    { name: "abc", designation: "Organizer" },
-  ]);
+  // const [participants, setParticipants] = useState([
+  //   { name: "Chintan", designation: "Winner" },
+  //   { name: "Ayush", designation: "Winner" },
+  //   { name: "Diya", designation: "Winner" },
+  //   { name: "Shreyansh", designation: "Winner" },
+  //   { name: "xyz", designation: "Participant" },
+  //   { name: "abc", designation: "Organizer" },
+  //   { name: "Chintan", designation: "Winner" },
+  //   { name: "Ayush", designation: "Winner" },
+  //   { name: "Diya", designation: "Winner" },
+  //   { name: "Shreyansh", designation: "Winner" },
+  //   { name: "xyz", designation: "Participant" },
+  //   { name: "abc", designation: "Organizer" },
+  //   { name: "Chintan", designation: "Winner" },
+  //   { name: "Ayush", designation: "Winner" },
+  //   { name: "Diya", designation: "Winner" },
+  //   { name: "Shreyansh", designation: "Winner" },
+  //   { name: "xyz", designation: "Participant" },
+  //   { name: "abc", designation: "Organizer" },
+  //   { name: "Chintan", designation: "Winner" },
+  //   { name: "Ayush", designation: "Winner" },
+  //   { name: "Diya", designation: "Winner" },
+  //   { name: "Shreyansh", designation: "Winner" },
+  //   { name: "xyz", designation: "Participant" },
+  //   { name: "abc", designation: "Organizer" },
+  // ]);
+
   const [currentCategory, setCurrentCategory] = useState(null);
   const [file, setFile] = useState(null);
   const [mailBody, setMailBody] = useState("");

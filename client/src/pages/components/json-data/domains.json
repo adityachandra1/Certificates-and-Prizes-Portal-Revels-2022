@@ -1,95 +1,139 @@
 [
   [
     {
-      "name": "Anubhuti",
+      "name": "Student Council",
       "selected": ""
     },
     {
-      "name": "Ampersand",
+      "name": "Participation",
       "selected": "not-selected"
     },
     {
-      "name": "Ergo",
+      "name": "Co-Convener",
       "selected": "not-selected"
     },
     {
-      "name": "Psychus",
+      "name": "Convener",
       "selected": "not-selected"
     },
     {
-      "name": "Kalakriti",
+      "name": "Volunteer",
       "selected": "not-selected"
     },
     {
-      "name": "Crescendo",
+      "name": "Event Head",
       "selected": "not-selected"
     },
     {
-      "name": "Footloose",
+      "name": "Star Volunteer",
       "selected": "not-selected"
     },
     {
-      "name": "Haute Couture",
+      "name": "Organizer",
       "selected": "not-selected"
     },
     {
-      "name": "Animania",
+      "name": "Winning",
       "selected": "not-selected"
     },
     {
-      "name": "Xventure",
+      "name": "Correspondent Crew",
       "selected": "not-selected"
     },
     {
-      "name": "Human Library",
-      "selected": "not-selected"
-    },
-    {
-      "name": "Lensation",
-      "selected": "not-selected"
-    },
-    {
-      "name": "Iridescent",
-      "selected": "not-selected"
-    },
-    {
-      "name": "Altaebir",
-      "selected": "not-selected"
-    },
-    {
-      "name": "Consulere",
-      "selected": "not-selected"
-    },
-    {
-      "name": "Dramebaaz",
+      "name": "Category Head",
       "selected": "not-selected"
     }
   ],
   [
     {
-      "name": "aaa",
+      "name": "Student Council",
       "selected": ""
     },
     {
-      "name": "bbb",
+      "name": "Participation",
       "selected": "not-selected"
     },
     {
-      "name": "ccc",
+      "name": "Co-Convener",
+      "selected": "not-selected"
+    },
+    {
+      "name": "Convener",
+      "selected": "not-selected"
+    },
+    {
+      "name": "Volunteer",
+      "selected": "not-selected"
+    },
+    {
+      "name": "Event Head",
+      "selected": "not-selected"
+    },
+    {
+      "name": "Star Volunteer",
+      "selected": "not-selected"
+    },
+    {
+      "name": "Organizer",
+      "selected": "not-selected"
+    },
+    {
+      "name": "Winning",
+      "selected": "not-selected"
+    },
+    {
+      "name": "Correspondent Crew",
+      "selected": "not-selected"
+    },
+    {
+      "name": "Category Head",
       "selected": "not-selected"
     }
   ],
   [
     {
-      "name": "xyz",
+      "name": "Student Council",
       "selected": ""
     },
     {
-      "name": "hiii",
+      "name": "Participation",
       "selected": "not-selected"
     },
     {
-      "name": "bye",
+      "name": "Co-Convener",
+      "selected": "not-selected"
+    },
+    {
+      "name": "Convener",
+      "selected": "not-selected"
+    },
+    {
+      "name": "Volunteer",
+      "selected": "not-selected"
+    },
+    {
+      "name": "Event Head",
+      "selected": "not-selected"
+    },
+    {
+      "name": "Star Volunteer",
+      "selected": "not-selected"
+    },
+    {
+      "name": "Organizer",
+      "selected": "not-selected"
+    },
+    {
+      "name": "Winning",
+      "selected": "not-selected"
+    },
+    {
+      "name": "Correspondent Crew",
+      "selected": "not-selected"
+    },
+    {
+      "name": "Category Head",
       "selected": "not-selected"
     }
   ]
