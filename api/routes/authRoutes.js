@@ -14,12 +14,12 @@ const createToken = (id) => {
 };
 
 //create-admin
-router.post("/create", async (req, res) => {
+router.post("/create-admin", async (req, res) => {
   const { name, password, email, token, role } = req.body;
   try {
     const admin = await Admin.create({
       name,
-      password: bcrypt.hashSync(password, 8),
+      password,
       email,
       token,
       role,
@@ -46,7 +46,7 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await Admin.findOne({ email: email });
-    if (password) {
+    if (password == user.password) {
       const accessToken = createToken(user._id);
       console.log(email + " logged in");
       res.json({
