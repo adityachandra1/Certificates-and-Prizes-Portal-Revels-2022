@@ -10,22 +10,34 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const AWS = require('aws-sdk');
 const QRCode = require('qrcode');
-var toSJIS = require('qrcode/helper/to-sjis');
 
 router.post('/cert', async (req, res) => {
     const tokens = [];
     const { email_body } = req.body;
     // var s3 = new AWS.S3();
 
-    //LIMIT: 500 per day on gmail
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.MAILER_EMAIL,
-            //put your email id for testing
-            pass: process.env.MAILER_PASSWORD,
-        }
+    AWS.config.update({
+        accessKeyId: process.env.AWS_ACCESS_KEY_1,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_1,
+        "region": process.env.REGION_1,
     });
+
+    // create Nodemailer SES transporter
+    let transporter = nodemailer.createTransport({
+        SES: new AWS.SES({
+            apiVersion: '2010-12-01'
+        })
+    });
+
+    //LIMIT: 500 per day on gmail
+    // const transporter = nodemailer.createTransport({
+    //     service: 'gmail',
+    //     auth: {
+    //         user: process.env.MAILER_EMAIL,
+    //         //put your email id for testing
+    //         pass: process.env.MAILER_PASSWORD,
+    //     }
+    // });
 
     for (var i in email_list) {
         try {
@@ -38,13 +50,13 @@ router.post('/cert', async (req, res) => {
             tokens.push(token);
 
             //////CHANGE THIS ACCORDING TO THE NEW S3 link
-            let QRLink = 'https://cnpportaltest.s3.ap-south-1.amazonaws.com/' + token + ".pdf";
+            let QRLink = 'https://cnpportal.s3.ap-south-1-.amazonaws.com/' + token + ".pdf";
             console.log(QRLink);
 
             //ADD THIS TO TEMPLATE
             let qr_img = await QRCode.toDataURL(QRLink);
 
-            let template = await fs.readFile('../certificate-template/appreciation.html', "utf8");
+            let template = await fs.readFile('../certificate-template/index1.html', "utf8");
 
 
             //else if (email_list[i].type == "FIRST" || email_list[i].type == "SECOND" || email_list[i].type == "THIRD") {
@@ -56,7 +68,7 @@ router.post('/cert', async (req, res) => {
             if (email_list[i].type == "SC") {
                 template = await fs.readFile('../certificate-template/index2.html', "utf8");
                 template = template.replace(/{{ACCENT_COLOR}}/g, "#991D1D");
-                template = template.replace("{{CERT_TEXT}}", "");
+                template = template.replace("{{CERT_TEXT}}", "in the capacity of a member of the Student Council in Revels'22,the National Cultural and Sports Fest of Manipal Institute of Technology held from 13th to 16th April 2022.");
 
             } else if (email_list[i].type == "PARTICIPATION") {
                 template = await fs.readFile('../certificate-template/index1.html', "utf8");
@@ -76,17 +88,17 @@ router.post('/cert', async (req, res) => {
             } else if (email_list[i].type == "VOLUNTEER") {
                 template = await fs.readFile('../certificate-template/index2.html', "utf8");
                 template = template.replace(/{{ACCENT_COLOR}}/g, "#14436F");
-                template = template.replace("{{CERT_TEXT}}", "");
+                template = template.replace("{{CERT_TEXT}}", "in the capacity of a Volunteer in Revels'22,the National Cultural and Sports Fest of Manipal Institute of Technology held from 13th to 16th April 2022.");
 
             } else if (email_list[i].type == "EVENT_HEAD") {
                 template = await fs.readFile('../certificate-template/index2.html', "utf8");
                 template = template.replace(/{{ACCENT_COLOR}}/g, "#591173");
-                template = template.replace("{{CERT_TEXT}}", "");
+                template = template.replace("{{CERT_TEXT}}", "in the capacity of a Event Head in Revels'22,the National Cultural and Sports Fest of Manipal Institute of Technology held from 13th to 16th April 2022.");
 
             } else if (email_list[i].type == "STAR_VOLUNTEER") {
                 template = await fs.readFile('../certificate-template/index2.html', "utf8");
                 template = template.replace(/{{ACCENT_COLOR}}/g, "#740E33");
-                template = template.replace("{{CERT_TEXT}}", "");
+                template = template.replace("{{CERT_TEXT}}", "in the capacity of a Star Volunteer in Revels'22,the National Cultural and Sports Fest of Manipal Institute of Technology held from 13th to 16th April 2022.");
 
             } else if (email_list[i].type == "FIRST" || email_list[i].type == "SECOND" || email_list[i].type == "THIRD") {
                 template = await fs.readFile('../certificate-template/index3.html', "utf8");
@@ -101,7 +113,7 @@ router.post('/cert', async (req, res) => {
             } else if (email_list[i].type == "CATEGORY_HEAD") {
                 template = await fs.readFile('../certificate-template/index1.html', "utf8");
                 template = template.replace(/{{ACCENT_COLOR}}/g, "#C4CCFF");
-                template = template.replace("{{CERT_TEXT}}", "");
+                template = template.replace("{{CERT_TEXT}}", "in the capacity of a member of the Student Council in Revels'22,the National Cultural and Sports Fest of Manipal Institute of Technology held from 13th to 16th April 2022.");
             } else {
                 res.status(300).json("Certificate category not found");
             }
@@ -141,6 +153,7 @@ router.post('/cert', async (req, res) => {
             transporter.sendMail(mailOptions, (err, data) => {
                 if (err) {
                     console.log("Email Not Sent!", err);
+                    res.status(300).json(err.message);
                     return;
                 } else {
                     // console.log(data, "EMAIL SENT!")
@@ -166,6 +179,14 @@ router.post('/cert', async (req, res) => {
             //         link: data.Location,
             //     });
             // });
+            const certi = Certificate.create({
+                name: email_list[i].name,
+                event: email_list[i].event,
+                email: email_list[i].email,
+                token: token,
+                link: QRLink
+            });
+
         } catch (e) {
             console.log(e);
             res.status(300).json("Certificate" + i + "Not Generated");
