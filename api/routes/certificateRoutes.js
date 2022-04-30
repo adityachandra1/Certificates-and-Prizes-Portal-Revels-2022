@@ -11,15 +11,26 @@ const nodemailer = require('nodemailer');
 const AWS = require('aws-sdk');
 const QRCode = require('qrcode');
 
-router.post('/cert', async (req, res) => {
+router.post('/cert', async(req, res) => {
     const tokens = [];
     const { email_body } = req.body;
-    // var s3 = new AWS.S3();
 
     AWS.config.update({
         accessKeyId: process.env.AWS_ACCESS_KEY_1,
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_1,
         "region": process.env.REGION_1,
+    });
+    var s3 = new AWS.S3();
+
+    var bucketParams = {
+        Bucket: "cnpportal"
+    };
+    s3.createBucket(bucketParams, function(err, data) {
+        if (err) {
+            console.log("Error", err);
+        } else {
+            console.log("Success", data.Location);
+        }
     });
 
     // create Nodemailer SES transporter
@@ -50,7 +61,7 @@ router.post('/cert', async (req, res) => {
             tokens.push(token);
 
             //////CHANGE THIS ACCORDING TO THE NEW S3 link
-            let QRLink = 'https://cnpportal.s3.ap-south-1-.amazonaws.com/' + token + ".pdf";
+            let QRLink = 'https://cnpportal.s3.amazonaws.com/' + token + ".pdf";
             console.log(QRLink);
 
             //ADD THIS TO TEMPLATE
@@ -80,7 +91,8 @@ router.post('/cert', async (req, res) => {
                 template = template.replace(/{{ACCENT_COLOR}}/g, "#4A7E16");
                 template = template.replace("{{CERT_TEXT}}", "");
 
-            } if (email_list[i].type == "CONVENER") {
+            }
+            if (email_list[i].type == "CONVENER") {
                 template = await fs.readFile('../certificate-template/index1.html', "utf8");
                 template = template.replace(/{{ACCENT_COLOR}}/g, "#4A7E16");
                 template = template.replace("{{CERT_TEXT}}", "");
@@ -147,7 +159,7 @@ router.post('/cert', async (req, res) => {
                     filename: email_list[i].name + '.pdf',
                     contentType: 'application/pdf',
                     path: './certificates/' + token + '.pdf',
-                },]
+                }, ]
             };
 
             transporter.sendMail(mailOptions, (err, data) => {
@@ -161,24 +173,17 @@ router.post('/cert', async (req, res) => {
             });
             const fileName = './certificates/' + token + '.pdf';
             const content = fs.readFileSync(fileName);
-            // const params = {
-            //     Bucket: process.env.AWS_BUCKET_NAME,
-            //     Key: `${token}.pdf`,
-            //     Body: content
-            // };
-            // s3.upload(params, (err, data) => {
-            //     if (err) {
-            //         console.log(err);
-            //     }
-            //     console.log(data);
-            //     const certi = Certificate.create({
-            //         name: email_list[i].name,
-            //         event: email_list[i].event,
-            //         email: email_list[i].email,
-            //         token: token,
-            //         link: data.Location,
-            //     });
-            // });
+            const params = {
+                Bucket: process.env.AWS_BUCKET_NAME,
+                Key: `${token}.pdf`,
+                Body: content
+            };
+            s3.upload(params, (err, data) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log(data);
+            });
             const certi = Certificate.create({
                 name: email_list[i].name,
                 event: email_list[i].event,

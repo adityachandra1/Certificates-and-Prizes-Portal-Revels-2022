@@ -1,14 +1,13 @@
-[
-  {
-    "name": "Aditya Chandra",
-    "email": "adityachandra9898@gmail.com",
-    "event": "Footlose",
-    "type": "EVENT_HEAD"
-  },
-  {
-    "name": "Aditya Chandra",
-    "email": "adityachandra9898@gmail.com",
-    "event": "Footlose",
-    "type": "FIRST"
-  }
+[{
+        "name": "Aditya Chandra",
+        "email": "adityachandra9898@gmail.com",
+        "event": "Footlose",
+        "type": "EVENT_HEAD"
+    },
+    {
+        "name": "Varun Balani",
+        "email": "varunprahladb@gmail.com",
+        "event": "Footlose",
+        "type": "FIRST"
+    }
 ]
