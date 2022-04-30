@@ -29,7 +29,7 @@ const SearchSubCategories = (props) => {
   return (
     <div className="search-component">
       <img className="search-component-logo" src={logo} alt="LOGO" />
-      <h1 className="search-heading">Cultural Category</h1>
+      <h1 className="search-heading">Categories</h1>
       <div className="search-bar">
         <input
           type="search"
