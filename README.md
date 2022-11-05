@@ -5,7 +5,6 @@ Certificates and Prizes portal for generation of e-certificates and sending it t
 ## Get started
 
 - To get started install Node.js (v16 recommended)
-- Setup SSH Keys for gitlab
 
 ## Frontend (/client)
 
